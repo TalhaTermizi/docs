@@ -27,7 +27,27 @@
             "pages": [
               "api-reference/auth/authenticate",
               "api-reference/onboarding/onboard",
-              "api-reference/invoices/clear-invoice"
+              {
+                "group": "Invoices",
+                "pages": [
+                  "api-reference/invoices/clear-invoice",
+                  "api-reference/invoices/report-invoice"
+                ]
+              },
+              {
+                "group": "Credit Notes",
+                "pages": [
+                  "api-reference/credit-notes/clear-credit-note",
+                  "api-reference/credit-notes/report-credit-note"
+                ]
+              },
+              {
+                "group": "Debit Notes",
+                "pages": [
+                  "api-reference/debit-notes/clear-debit-note",
+                  "api-reference/debit-notes/report-debit-note"
+                ]
+              }
             ]
           }
         ]
