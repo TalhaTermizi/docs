@@ -26,7 +26,8 @@
             "group": "API Reference",
             "pages": [
               "api-reference/auth/authenticate",
-              "api-reference/onboarding/onboard"
+              "api-reference/onboarding/onboard",
+              "api-reference/invoices/clear-invoice"
             ]
           }
         ]
