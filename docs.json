@@ -28,13 +28,13 @@
               {
                 "group": "Auth",
                 "pages": [
-                  "api-reference/auth/authenticate",
+                  "api-reference/auth/authenticate"
                 ]
               },
               {
                 "group": "Onboard Entity",
                 "pages": [
-                  "api-reference/onboarding/onboard",
+                  "api-reference/onboarding/onboard"
                 ]
               },
               {
