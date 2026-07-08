@@ -1,5 +1,5 @@
 ---
-title: "authentication"
+title: "Authentication"
 ---
 
 Every request to the ezInvoice API requires a valid access token. You get this token by calling the Auth endpoint once with your credentials, then include it in every subsequent request.
