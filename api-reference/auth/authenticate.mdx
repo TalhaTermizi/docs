@@ -1,0 +1,56 @@
+---
+title: "Authenticate"
+api: "POST /v1/e-invoicing/auth"
+---
+
+## What it does
+
+Exchanges your registered credentials for an access token. This token must be sent in the `Authorization` header on every subsequent API call.
+
+## Request Body
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| vat_number | string | Yes | Your organization's 15-digit VAT registration number |
+| username | string | Yes | API username assigned to your account |
+| secret | string | Yes | API secret/password assigned to your account |
+
+## Example Request
+
+```bash
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/auth \
+  -H "Content-Type: application/json" \
+  -d '{
+    "vat_number": "311262046600003",
+    "username": "api",
+    "secret": "YOUR_SECRET"
+  }'
+```
+
+## Example Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_in": 3600
+}
+```
+
+<Warning>
+Replace the example response above with your actual API's response once confirmed — check a real Postman response if you have one saved.
+</Warning>
+
+## Using the Token
+
+Include the returned token on every following request:
+
+```bash
+Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+```
+
+## Errors
+
+| Code | Meaning |
+|---|---|
+| 401 | Invalid VAT number, username, or secret |
+| 400 | Missing required field |
