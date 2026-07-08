@@ -127,6 +127,79 @@ The eInvoices API exposes the following top-level resources:
 | [Clients](/api/clients)        | Manage client profiles including billing addresses and contact information. |
 | [Payments](/api/payments)      | Record manual payments and retrieve payment history against invoices.       |
 | [Webhooks](/api/webhooks)      | Register endpoint URLs to receive real-time event notifications.            |
+| [Reports](#get-v1-reports-revenue) | Retrieve revenue summaries and financial totals across invoices and payments. |
+
+---
+
+## GET /v1/reports/revenue
+
+Retrieve a revenue summary for your account over a specified date range. The response gives you high-level totals — how much you have invoiced, how much has been paid, and how much is still outstanding — useful for financial reporting, dashboards, and accounting integrations.
+
+<Note>
+  This endpoint returns an account-level aggregate summary, not individual invoice records. To retrieve individual invoices filtered by date, use [GET /v1/invoices](/api/invoices). For a detailed breakdown exportable as CSV or PDF, see the [Revenue report](/guides/reports) in the dashboard.
+</Note>
+
+### Query Parameters
+
+<ParamField query="from_date" type="string" required>
+  Start of the reporting period in `YYYY-MM-DD` format. Only invoices with an `issue_date` on or after this date are included.
+</ParamField>
+
+<ParamField query="to_date" type="string" required>
+  End of the reporting period in `YYYY-MM-DD` format. Only invoices with an `issue_date` on or before this date are included.
+</ParamField>
+
+<ParamField query="currency" type="string">
+  Filter results to a single ISO 4217 currency code (e.g. `USD`, `EUR`). If omitted, totals are returned for every currency your account has invoiced in — one object per currency in the `data` array.
+</ParamField>
+
+### Response Fields
+
+<ResponseField name="currency" type="string">
+  The ISO 4217 currency code these totals apply to (e.g. `USD`).
+</ResponseField>
+
+<ResponseField name="total_invoiced" type="number">
+  Sum of all invoice totals issued in the period, regardless of payment status.
+</ResponseField>
+
+<ResponseField name="total_paid" type="number">
+  Sum of all payments received against invoices in the period.
+</ResponseField>
+
+<ResponseField name="total_outstanding" type="number">
+  Remaining unpaid balance across all invoices in the period (`total_invoiced - total_paid`).
+</ResponseField>
+
+### Example Request
+
+```bash
+curl "https://api.einvoices.com/v1/reports/revenue?from_date=2024-01-01&to_date=2024-06-30&currency=USD" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Example Response
+
+```json
+{
+  "data": [
+    {
+      "currency": "USD",
+      "total_invoiced": 52500.00,
+      "total_paid": 47250.00,
+      "total_outstanding": 5250.00
+    }
+  ],
+  "from_date": "2024-01-01",
+  "to_date": "2024-06-30"
+}
+```
+
+<Tip>
+  For a richer breakdown by client, tax rate, or invoice status — and to export as CSV or PDF — use the <a href="/guides/reports">Revenue report</a> in the eInvoices dashboard.
+</Tip>
+
+---
 
 ## Errors
 

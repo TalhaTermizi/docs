@@ -50,6 +50,7 @@ The eInvoices API uses the following standard HTTP status codes:
 | `422 Unprocessable Entity`    | The request was well-formed but failed field-level validation.        |
 | `429 Too Many Requests`       | You have exceeded the rate limit. Check the `Retry-After` header.    |
 | `500 Internal Server Error`   | An unexpected error occurred on the eInvoices server.                |
+| `502 Bad Gateway`             | The payment gateway returned an upstream error. Retry after a short delay. |
 
 <Tip>
   Use the HTTP status code for coarse-grained branching (for example, retry on
