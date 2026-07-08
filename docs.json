@@ -9,15 +9,6 @@
   },
   "favicon": "/favicon.svg",
 
-  "topbar": {
-    "links": [
-      {
-        "label": "Login",
-        "href": "https://app.einvoice.sa.com/login"
-      }
-    ]
-  },
-
   "navigation": {
     "tabs": [
       {
@@ -46,11 +37,12 @@
   "footer": {
     "socials": {}
   },
+
   "navbar": {
     "primary": {
       "type": "button",
       "label": "Login",
-      "href": "https://developer.einvoice.sa.com"
+      "href": "https://app.einvoice.sa.com/login"
     }
   }
 }
