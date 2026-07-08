@@ -1,0 +1,46 @@
+---
+title: "authentication"
+---
+
+Every request to the ezInvoice API requires a valid access token. You get this token by calling the Auth endpoint once with your credentials, then include it in every subsequent request.
+
+## How it works
+
+```text
+1. POST /v1/e-invoicing/auth  →  get token
+2. Include token in Authorization header on every API call
+```
+
+## Getting your token
+
+Call the Auth endpoint with your registered credentials:
+
+```bash
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/auth \
+  -H "Content-Type: application/json" \
+  -d '{
+    "vat_number": "YOUR_VAT_NUMBER",
+    "username": "YOUR_USERNAME",
+    "secret": "YOUR_SECRET"
+  }'
+```
+
+You'll receive a token in the response. Copy it — you'll need it for every request.
+
+## Using your token
+
+Include the token in the `Authorization` header on every call:
+
+```bash
+Authorization: Bearer YOUR_TOKEN_HERE
+```
+
+## Important notes
+
+<Warning>
+  Never share your secret or commit it to source code. Store credentials in environment variables.
+</Warning>
+
+<Info>
+  Your credentials (VAT number, username, secret) are provided by ezInvoice during account setup. Contact [support@einvoice.sa.com](mailto:support@einvoice.sa.com) if you need them.
+</Info>
