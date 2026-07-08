@@ -1,0 +1,83 @@
+---
+title: "Onboard a Device"
+api: "POST /v1/e-invoicing/onboardings"
+---
+
+## What it does
+
+Registers a new device/organization for e-invoicing before you can clear or report any documents. This is required once per device before you can call any invoice, credit note, or debit note endpoint.
+
+## Authentication
+
+Requires a valid token from [Authenticate](/api-reference/auth/authenticate).
+
+## Request Body
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| otp | string | Yes | One-time password sent for verification |
+| vat_number | string | Yes | Your organization's 15-digit VAT number |
+| device_id | string | Yes | Unique identifier you choose for this device |
+| invoice_type | string | Yes | `standard`, `simplified`, or `both` — see note below |
+| org_name | string | Yes | Legal business name |
+| org_unit | string | Yes | Branch or unit name (e.g. city/location) |
+| business_category | string | Yes | Industry category, e.g. `IT`, `Retail` |
+| registered_address | string | Yes | Registered business address |
+| country_code | string | Yes | ISO country code, e.g. `SA` |
+| email_id | string | Yes | Contact email for this onboarding |
+
+<Info>
+**Choosing `invoice_type`:**
+- `standard` — for B2B invoices requiring real-time clearance
+- `simplified` — for B2C invoices, reported (not cleared) within 24 hours
+- `both` — device can issue either type
+</Info>
+
+## Example Request
+
+```bash
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/onboardings \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "otp": "464316",
+    "vat_number": "311262046600003",
+    "device_id": "SIMAHUATONBOARDTESTING",
+    "invoice_type": "both",
+    "org_name": "Goagile Technologies",
+    "org_unit": "Riyadh",
+    "business_category": "IT",
+    "registered_address": "Al-Morabba",
+    "country_code": "SA",
+    "email_id": "support@goagile.com"
+  }'
+```
+
+## Example Response
+
+```json
+{
+  "onboard_id": "NjU5YTcyYTI2NGE4MmI5ZjNmMDY2NjY5OjMxMTI2MjA0NjYwMDAwMzpEZXZpY2VJZC0wMDE=",
+  "status": "success"
+}
+```
+
+<Warning>
+Replace this example response with the real response body from your Postman collection once confirmed.
+</Warning>
+
+<Warning>
+Save the `onboard_id` returned here — every invoice, credit note, and debit note endpoint requires it in the URL path.
+</Warning>
+
+## Where to get the OTP
+
+<!-- ⚠️ Need to fill this in — where does the OTP come from? SMS, email, or a separate endpoint not in this collection? -->
+
+## Errors
+
+| Code | Meaning |
+|---|---|
+| 400 | Invalid or expired OTP |
+| 409 | Device already onboarded |
+| 401 | Missing or invalid auth token |
