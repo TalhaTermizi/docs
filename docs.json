@@ -8,6 +8,16 @@
     "dark": "#0F766E"
   },
   "favicon": "/favicon.svg",
+
+  "topbar": {
+    "links": [
+      {
+        "label": "Login",
+        "href": "https://app.einvoice.sa.com/login"
+      }
+    ]
+  },
+
   "navigation": {
     "tabs": [
       {
@@ -15,7 +25,11 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": ["index", "quickstart", "authentication"]
+            "pages": [
+              "index",
+              "quickstart",
+              "authentication"
+            ]
           },
           {
             "group": "API Reference",
@@ -28,6 +42,7 @@
       }
     ]
   },
+
   "footer": {
     "socials": {}
   }
