@@ -45,5 +45,12 @@
 
   "footer": {
     "socials": {}
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Login",
+      "href": "https://developer.einvoice.sa.com"
+    }
   }
 }
