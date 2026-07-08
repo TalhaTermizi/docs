@@ -1,98 +1,50 @@
 ---
-title: "eInvoices Quick Start: Set Up and Send Your First Invoice"
-sidebarTitle: "Quick Start"
-description: "Learn how to create your eInvoices account, set up your business profile, add a client, and send your first professional invoice in minutes."
+title: "Quickstart"
+description: "Make your first API call in minutes"
 ---
 
-eInvoices gets you from sign-up to a sent, professional invoice in just a few steps. Follow this guide to create your account, set up your business profile, add your first client, and deliver your first invoice — all without touching a spreadsheet or a Word template.
+This guide walks you through authenticating, onboarding a device, and clearing your first invoice.
 
-## Prerequisites
+## Step 1: Authenticate
 
-Before you begin, make sure you have the following ready:
+```bash
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/auth \
+  -H "Content-Type: application/json" \
+  -d '{
+    "vat_number": "YOUR_VAT_NUMBER",
+    "username": "YOUR_USERNAME",
+    "secret": "YOUR_SECRET"
+  }'
+```
 
-- A free eInvoices account — [sign up at app.einvoices.com/signup](https://app.einvoices.com/signup) if you don't have one yet.
-- Access to the email inbox you used to register, so you can complete email verification.
+Save the `token` from the response — you'll need it for every request below.
 
-## Steps
+## Step 2: Onboard your device
 
-<Steps>
-  <Step title="Sign Up and Verify Your Email">
-    Create your account and confirm your identity so your invoices are sent from a trusted, verified address.
+```bash
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/onboardings \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "otp": "YOUR_OTP",
+    "vat_number": "YOUR_VAT_NUMBER",
+    "device_id": "YOUR_DEVICE_ID",
+    "invoice_type": "both",
+    "org_name": "Your Company Name",
+    "org_unit": "Riyadh",
+    "business_category": "IT",
+    "registered_address": "Your Address",
+    "country_code": "SA",
+    "email_id": "you@example.com"
+  }'
+```
 
-    1. Go to [app.einvoices.com/signup](https://app.einvoices.com/signup) and enter your name, email address, and a strong password.
-    2. Click **Create Account**. eInvoices immediately sends a verification email to the address you provided.
-    3. Open the email — look for a message from **no-reply@einvoices.com** with the subject line *Verify your eInvoices email address*.
-    4. Click the **Verify Email** button inside the message. You are redirected back to the eInvoices dashboard and your account is now active.
+Save the `onboard_id` from the response — you'll need it for every document request below.
 
-    <Note>
-      If the verification email doesn't arrive within a couple of minutes, check your spam or junk folder. You can also request a new email from the **Resend Verification** link on the login page.
-    </Note>
-  </Step>
+## Step 3: Clear your first invoice
 
-  <Step title="Complete Your Business Profile">
-    Your business profile powers the "From" section of every invoice you send. Filling it out now means every future invoice looks polished and professional without any extra effort.
+<!-- ⚠️ Placeholder — once we document Clear Invoice, add the real curl example here -->
 
-    1. In the left sidebar, click **Settings**, then select **Business Profile**.
-    2. Enter your **Company Name** exactly as it should appear on invoices and client communications.
-    3. Fill in your **Business Address** — include street, city, state/province, postal code, and country.
-    4. Upload your **Company Logo** by clicking **Upload Logo** and selecting a PNG or JPG file (max 2 MB). Your logo appears in the top-left corner of every invoice.
-    5. Choose your **Default Currency** from the dropdown (for example, USD, EUR, or GBP). You can override this per invoice if you bill international clients.
-    6. Click **Save Profile** to apply your changes.
+## Next steps
 
-    <Tip>
-      Pick a square or landscape logo with a transparent background for the cleanest results on both white and branded invoice templates.
-    </Tip>
-  </Step>
-
-  <Step title="Add Your First Client">
-    eInvoices stores your client details so you can address future invoices in seconds. Add a client now and it becomes available to every invoice you create going forward.
-
-    1. In the left sidebar, click **Clients**, then click **+ New Client**.
-    2. Enter the client's **Full Name** or **Company Name**.
-    3. Add the client's **Email Address** — this is where eInvoices delivers the invoice PDF.
-    4. Fill in the client's **Billing Address**, including country. This appears in the "Bill To" section of the invoice.
-    5. Optionally, add a **Phone Number** and any **Internal Notes** (these notes are private and never shown to the client).
-    6. Click **Save Client**.
-
-    Your new client now appears in the **Clients** list and is immediately available to select when building an invoice.
-  </Step>
-
-  <Step title="Create and Send Your First Invoice">
-    With your profile complete and your first client saved, you're ready to generate and deliver a real invoice.
-
-    1. In the left sidebar, click **Invoices**, then click **+ New Invoice**.
-    2. In the **Client** field, start typing your client's name and select them from the dropdown.
-    3. Confirm or adjust the **Invoice Date** and **Due Date** (or select a payment term such as Net 30).
-    4. Under **Line Items**, click **+ Add Item** and enter a description, quantity, and unit price for each service or product you're billing for.
-    5. If applicable, apply a **Tax Rate** using the tax toggle — eInvoices calculates the total automatically.
-    6. Add an optional **Note to Client** (for example, payment instructions or a thank-you message) in the notes field at the bottom.
-    7. Click **Preview** to see exactly what your client will receive, then click **Send Invoice** to deliver it to your client's inbox instantly.
-
-    <Note>
-      eInvoices marks the invoice as **Sent** and starts tracking it. You'll receive a notification when your client opens the email, and another when the invoice is marked paid.
-    </Note>
-
-    Congratulations — you've just sent your first professional invoice with eInvoices! 🎉
-  </Step>
-</Steps>
-
-## What's Next?
-
-<Tip>
-  Ready to go deeper? The [Create an Invoice](/guides/create-invoice) guide walks you through every field, line-item option, discount type, and attachment feature available in the invoice editor.
-</Tip>
-
-<CardGroup cols={2}>
-  <Card title="Manage Clients" icon="users" href="/concepts/clients">
-    Organise your client list, add contacts, and track outstanding balances per client.
-  </Card>
-  <Card title="Set Up Recurring Invoices" icon="rotate" href="/guides/recurring-invoices">
-    Automate repeat billing by scheduling invoices to send daily, weekly, or monthly.
-  </Card>
-  <Card title="Accept Online Payments" icon="credit-card" href="/integrations/payment-gateways">
-    Connect Stripe or PayPal so clients can pay directly from the invoice email.
-  </Card>
-  <Card title="Account Settings" icon="gear" href="/account-setup">
-    Customise your branding, tax rates, currencies, and email defaults.
-  </Card>
-</CardGroup>
+Explore the full API Reference to see every available endpoint.
