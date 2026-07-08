@@ -1,11 +1,9 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "luma",
-  "name": "eInvoices",
+  "name": "ezInvoice",
   "colors": {
-    "primary": "#2563EB",
-    "light": "#3B82F6",
-    "dark": "#1D4ED8"
+    "primary": "#0D9488",
+    "light": "#14B8A6",
+    "dark": "#0F766E"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -15,86 +13,17 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "account-setup"
-            ]
+            "pages": ["index", "quickstart", "authentication"]
           },
           {
-            "group": "Core Concepts",
+            "group": "API Reference",
             "pages": [
-              "concepts/invoices",
-              "concepts/clients",
-              "concepts/payments",
-              "concepts/taxes"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "guides/create-invoice",
-              "guides/send-invoice",
-              "guides/recurring-invoices",
-              "guides/payment-reminders",
-              "guides/reports"
-            ]
-          },
-          {
-            "group": "Integrations",
-            "pages": [
-              "integrations/overview",
-              "integrations/accounting",
-              "integrations/payment-gateways"
-            ]
-          },
-          {
-            "group": "Help",
-            "pages": [
-              "faq",
-              "troubleshooting"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "api/overview",
-              "api/authentication",
-              "api/errors"
-            ]
-          },
-          {
-            "group": "Resources",
-            "pages": [
-              "api/invoices",
-              "api/clients",
-              "api/payments",
-              "api/webhooks"
+              "api-reference/auth/authenticate",
+              "api-reference/onboarding/onboard"
             ]
           }
         ]
       }
     ]
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@einvoices.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Sign Up Free",
-      "href": "https://app.einvoices.com/signup"
-    }
-  },
-  "footer": {
-    "socials": {}
   }
 }
