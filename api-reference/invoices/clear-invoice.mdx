@@ -1,0 +1,200 @@
+---
+title: "Clear Invoice"
+api: "POST /v1/e-invoicing/{onboard_id}/invoices"
+---
+
+## What it does
+
+Submits a standard (B2B) invoice to ZATCA for real-time clearance. ZATCA validates, signs, and returns the cleared invoice with a QR code — all before it's considered legally issued.
+
+## Authentication
+
+Requires a valid token from [Authenticate](/api-reference/auth/authenticate).
+
+## Path Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| onboard_id | string | ID returned from the [Onboard](/api-reference/onboarding/onboard) endpoint |
+
+## Request Body
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| invoice_number | string | Yes | Your internal invoice reference number |
+| invoice_type | string | Yes | `standard` for B2B clearance |
+| issue_date | string | Yes | Invoice issue date, `YYYY-MM-DD` |
+| actual_delivery_date | string | Yes | Delivery date, `YYYY-MM-DD` |
+| issue_time | string | Yes | Issue time, `HH:MM:SS` |
+| note | string | No | Free-text note on the invoice |
+| doc_currency_code | string | Yes | Document currency, e.g. `SAR` |
+| tax_currency_code | string | Yes | Tax currency, e.g. `SAR` |
+| customer_info | object | Yes | Buyer VAT number, name, address, party ID |
+| supplier_info | object | Yes | Seller VAT number, name, address, party ID |
+| payment_means | string | Yes | e.g. `cash` |
+| payment_means_instruction_note | string | No | Free-text payment note |
+| allowance_charge | object | Yes | Invoice-level discount/charge details |
+| tax_total | object | Yes | Total tax amount and breakdown |
+| legal_monitory_total | object | Yes | Total, tax-exclusive, tax-inclusive, and payable amounts |
+| invoice_lines | array | Yes | Line items — quantity, price, tax per item |
+
+## Example Request
+
+```bash
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/{onboard_id}/invoices \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "invoice_number": "INV01",
+    "invoice_type": "standard",
+    "issue_date": "2026-06-09",
+    "actual_delivery_date": "2026-06-15",
+    "issue_time": "10:00:00",
+    "note": "test invoice",
+    "doc_currency_code": "SAR",
+    "tax_currency_code": "SAR",
+    "customer_info": {
+      "vat_number": "300295616200003",
+      "tax_type": "VAT",
+      "registration_name": "Adnoc Oil and Gas Company",
+      "address": {
+        "street_name": "King Fahd Road",
+        "building_number": "4590",
+        "plot_identification": "4590",
+        "city_subdivision_name": "Jeddah",
+        "city_name": "Jeddah",
+        "postal_zone": "11311",
+        "country": "SA",
+        "country_subentity": ""
+      },
+      "party_identification": {
+        "scheme": "CRN",
+        "id": "7051298821"
+      }
+    },
+    "supplier_info": {
+      "vat_number": "311262046600003",
+      "tax_type": "VAT",
+      "registration_name": "Najma Al Hulool",
+      "address": {
+        "street_name": "Ghirnatah, Riyadh 13241",
+        "building_number": "2596",
+        "plot_identification": "2596",
+        "city_subdivision_name": "Ghirnatah",
+        "city_name": "Riyadh",
+        "postal_zone": "13241",
+        "country": "SA",
+        "country_subentity": ""
+      },
+      "party_identification": {
+        "scheme": "CRN",
+        "id": "1010171097"
+      }
+    },
+    "payment_means": "cash",
+    "payment_means_instruction_note": "will receive in cash",
+    "allowance_charge": {
+      "charge_indicator": false,
+      "reason": "discount",
+      "amount": 0,
+      "currency": "SAR",
+      "tax_category": {
+        "id": "S",
+        "percent": 15,
+        "tax_type": "VAT"
+      }
+    },
+    "tax_total": {
+      "currency": "SAR",
+      "tax_amount": 3.75,
+      "tax_subtotal": {
+        "taxable_amount": 25,
+        "tax_amount": 3.75,
+        "tax_category": {
+          "id": "S",
+          "percent": 15,
+          "tax_type": "VAT"
+        }
+      }
+    },
+    "legal_monitory_total": {
+      "total_amount": 25,
+      "tax_exclusive_amount": 25,
+      "tax_inclusive_amount": 28.75,
+      "payable_amount": 28.75
+    },
+    "invoice_lines": [
+      {
+        "id": "1",
+        "unit_code": "EA",
+        "quantity": 1,
+        "amount": 25,
+        "tax_total": {
+          "currency": "SAR",
+          "tax_amount": 3.75,
+          "rounding_amount": 28.75
+        },
+        "item": {
+          "name": "Butter",
+          "classified_tax_category": {
+            "id": "S",
+            "percent": 15,
+            "tax_type": "VAT"
+          }
+        },
+        "price": {
+          "currency": "SAR",
+          "price_per_unit": 25,
+          "base_unit_code": "EA",
+          "allowance_charge": {
+            "charge_indicator": false,
+            "reason": "discount",
+            "amount": 0,
+            "base_amount": 25,
+            "currency": "SAR"
+          }
+        }
+      }
+    ]
+  }'
+```
+
+## Example Response
+
+```json
+{
+  "status": "Success",
+  "invoice_number": "INV01",
+  "invoice": "PD94bWwgdmVyc2lvbj0iMS4wIi...(base64-encoded signed UBL XML, truncated)",
+  "id": "325c1994-2655-4d05-a15a-49398e949660",
+  "qr_code": "AQ9OYWptYSBBbCBIdWxvb2wCDzMxMTI2MjA0NjYwMDAwMw...(truncated)",
+  "message": "standard-invoice INV01 cleared successfully",
+  "warnings": null,
+  "errors": null
+}
+```
+
+<Info>
+The `invoice` field is the full ZATCA-signed UBL 2.1 invoice, base64-encoded. Decode it if you need to store or display the raw XML. The `qr_code` field is a base64-encoded ZATCA-compliant QR code for the invoice.
+</Info>
+
+## Response Fields
+
+| Field | Description |
+|---|---|
+| status | `Success` or `Failure` |
+| invoice_number | Echoes back your submitted invoice number |
+| invoice | Base64-encoded, ZATCA-signed UBL XML |
+| id | Unique UUID assigned to this invoice |
+| qr_code | Base64-encoded QR code data |
+| message | Human-readable result summary |
+| warnings | Any non-blocking ZATCA warnings, or `null` |
+| errors | Any blocking errors, or `null` |
+
+## Errors
+
+| Code | Meaning |
+|---|---|
+| 400 | Invalid or missing required field |
+| 401 | Missing or invalid auth token |
+| 422 | ZATCA rejected the invoice — check `errors` field in response |
