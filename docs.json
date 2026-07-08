@@ -25,8 +25,18 @@
           {
             "group": "API Reference",
             "pages": [
-              "api-reference/auth/authenticate",
-              "api-reference/onboarding/onboard",
+              {
+                "group": "Auth",
+                "pages": [
+                  "api-reference/auth/authenticate",
+                ]
+              },
+              {
+                "group": "Onboard Entity",
+                "pages": [
+                  "api-reference/onboarding/onboard",
+                ]
+              },
               {
                 "group": "Invoices",
                 "pages": [
