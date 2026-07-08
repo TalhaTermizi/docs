@@ -1,0 +1,119 @@
+---
+title: "Understanding Clients and Contact Records in eInvoices"
+sidebarTitle: "Clients"
+description: "Understand how client records work in eInvoices, including stored contact details, linked invoice history, and the self-service client payment portal."
+---
+
+A client record in eInvoices is the central profile for every person or business you bill. Keeping your client records complete and up to date means eInvoices can pre-fill invoices accurately, surface the right payment history at a glance, and give clients seamless access to their own invoices through the client portal.
+
+## What a Client Record Contains
+
+When you create a client, you capture the following information.
+
+### Contact Details
+
+| Field | Description |
+|-------|-------------|
+| **Name** | The client's full name or business name, as it appears on invoices. |
+| **Email** | Primary email address used for sending invoices and payment receipts. |
+| **Phone** | Optional contact number, stored for your reference. |
+| **Website** | Optional URL, useful for keeping a quick link to a business client's site. |
+
+### Billing and Shipping Addresses
+
+eInvoices stores separate **billing** and **shipping** addresses for each client.
+
+- The **billing address** prints on every invoice sent to this client.
+- The **shipping address** is available as an optional field on invoices where you need to specify a delivery destination.
+
+Both addresses support multi-line entry and include country selection for international clients.
+
+### Invoice Defaults
+
+Setting defaults on a client record saves you time every time you raise a new invoice for that client.
+
+| Field | Description |
+|-------|-------------|
+| **Default Currency** | The currency used when creating invoices for this client. Can be overridden per invoice. |
+| **Default Payment Terms** | The standard payment window, e.g. *Net 30* or *Due on Receipt*. Sets the due date automatically when you create a new invoice. |
+
+### Notes
+
+The **Notes** field is a free-text area visible only to you and your team — clients never see it. Use it to record special billing instructions, account manager names, preferred contact times, or any other context that helps your team handle the account smoothly.
+
+<Tip>
+  If a client always pays in a specific currency or consistently requests extended payment terms, set those as their defaults so eInvoices applies them automatically to every new invoice.
+</Tip>
+
+## Clients and Invoice History
+
+Every invoice you create for a client is linked directly to their record. From a client's profile page you can:
+
+- **View all invoices** — See a chronological list of every invoice raised for that client, filterable by status (Draft, Sent, Overdue, Paid, Void).
+- **View payment history** — See every payment recorded against the client's invoices, including the date, amount, payment method, and which invoice the payment was applied to.
+- **Track outstanding balance** — The client profile shows the total amount currently owed across all open invoices.
+
+This consolidated view means you never have to search across your full invoice list to understand the financial relationship with a specific client.
+
+<Note>
+  Payment history on a client record reflects all payments, including partial payments and refunds. The outstanding balance figure updates in real time as payments are recorded.
+</Note>
+
+## Client Portal
+
+Every client has access to a dedicated **client portal** — a secure, branded web page where they can view and pay their invoices without needing to create an account.
+
+### How it Works
+
+1. When you send an invoice by email, the message includes a **View Invoice** button that links directly to that invoice in the client portal.
+2. Once in the portal, the client can navigate to all their invoices — not just the one linked in the email.
+3. The client can pay outstanding invoices online using any payment method you have enabled (credit card, bank transfer, etc.).
+4. After payment, the portal updates immediately to reflect the new status.
+
+### Portal Access
+
+Client portal access is controlled by a **unique secure link** tied to the client's email address. There is no password to manage — the link itself serves as authentication.
+
+<Warning>
+  Because the portal link grants access to all of that client's invoices, treat it like a password. If a client believes their link has been compromised, you can regenerate it from their profile under **Client Actions → Regenerate Portal Link**. The old link becomes invalid immediately.
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="What clients can do in the portal" icon="circle-check">
+    - View all invoices (current and historical)
+    - Download PDF copies of any invoice
+    - Pay outstanding invoices online
+    - View payment receipts
+  </Card>
+  <Card title="What clients cannot do in the portal" icon="circle-xmark">
+    - Edit invoice details
+    - View your internal notes
+    - See invoices belonging to other clients
+    - Access your account settings
+  </Card>
+</CardGroup>
+
+## Archiving vs Deleting Clients
+
+When a client relationship ends, you have two options: **archive** or **delete**.
+
+### Archiving a Client
+
+Archiving hides the client from your active client list and prevents new invoices from being created for them, but preserves all their historical data.
+
+- All past invoices remain intact and fully accessible.
+- Payment history is retained for reporting and auditing purposes.
+- The client can still access their portal and view historical invoices.
+- You can **unarchive** a client at any time to resume billing them.
+
+Archiving is the recommended approach for clients you are no longer actively working with.
+
+### Deleting a Client
+
+Deleting a client **permanently removes** their record and cannot be undone.
+
+<Warning>
+  You cannot delete a client who has any invoices — paid, unpaid, or voided — attached to their record. eInvoices requires you to delete or reassign those invoices first. For most situations, archiving is the safer and more practical choice.
+</Warning>
+
+Use deletion only for test records or duplicate entries created by mistake, where there is no meaningful invoice history to preserve.

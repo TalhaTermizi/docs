@@ -1,0 +1,393 @@
+---
+title: "eInvoices API Reference: Client Resource Endpoints"
+sidebarTitle: "Clients"
+description: "Create, retrieve, update, and archive client records via the eInvoices REST API. Full parameter reference and curl examples included."
+---
+
+The Clients API lets you manage the people and businesses you invoice. Every invoice you create is linked to a client record, so keeping your client data accurate ensures invoices reach the right inbox with the correct billing details automatically pre-filled.
+
+## Base URL
+
+```
+https://api.einvoices.com/v1
+```
+
+## Authentication
+
+Include your API key as a Bearer token in the `Authorization` header of every request.
+
+```http
+Authorization: Bearer YOUR_API_KEY
+```
+
+---
+
+## The Client Object
+
+Every endpoint that returns a client returns the same client object structure.
+
+<ResponseField name="id" type="string">
+  Unique identifier for the client, prefixed with `cli_`.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Full name of the individual or company.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  Primary billing email address. Invoice emails are sent here by default.
+</ResponseField>
+
+<ResponseField name="phone" type="string">
+  Phone number in E.164 format (e.g. `+1-555-0100`).
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  The client's default invoice currency (ISO 4217). Used as the default when creating an invoice for this client.
+</ResponseField>
+
+<ResponseField name="payment_terms" type="string">
+  The client's default payment terms. One of `net7`, `net15`, `net30`, or `due_on_receipt`.
+</ResponseField>
+
+<ResponseField name="billing_address" type="object">
+  The client's billing address. Contains `line1`, `line2` (optional), `city`, `state`, `postal_code`, and `country`.
+</ResponseField>
+
+<ResponseField name="notes" type="string">
+  Private internal notes about this client. Not visible to the client.
+</ResponseField>
+
+<ResponseField name="archived" type="boolean">
+  When `true`, the client is archived and does not appear in default list views. All associated invoices are retained.
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  ISO 8601 timestamp of when the client was created.
+</ResponseField>
+
+---
+
+## GET /v1/clients
+
+Return a paginated list of all active (non-archived) clients in your account. Pass the `search` parameter to filter by name or email.
+
+### Query Parameters
+
+<ParamField query="search" type="string">
+  Filter clients by partial match on `name` or `email`. The search is case-insensitive.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="20">
+  Number of records to return per page. Maximum `100`.
+</ParamField>
+
+<ParamField query="cursor" type="string">
+  Pagination cursor returned by the previous response as `next_cursor`. Omit to start from the first page.
+</ParamField>
+
+### Example Request
+
+```bash
+curl "https://api.einvoices.com/v1/clients?search=acme&limit=10" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Example Response
+
+```json
+{
+  "data": [
+    {
+      "id": "cli_x9y8z7",
+      "name": "Acme Corp",
+      "email": "billing@acme.com",
+      "phone": "+1-555-0100",
+      "currency": "USD",
+      "payment_terms": "net30",
+      "billing_address": {
+        "line1": "123 Main St",
+        "city": "Austin",
+        "state": "TX",
+        "postal_code": "78701",
+        "country": "US"
+      },
+      "archived": false,
+      "created_at": "2024-01-15T12:00:00Z"
+    }
+  ],
+  "next_cursor": null,
+  "has_more": false
+}
+```
+
+---
+
+## POST /v1/clients
+
+Create a new client record. At minimum, you must supply a `name` and `email`. All other fields are optional and can be added later via `PUT /v1/clients/{id}`.
+
+### Request Body
+
+<ParamField body="name" type="string" required>
+  Full name of the person or company.
+</ParamField>
+
+<ParamField body="email" type="string" required>
+  Primary billing email address. Must be a valid email format.
+</ParamField>
+
+<ParamField body="billing_address" type="object">
+  The client's billing address.
+
+  <Expandable title="Billing address fields">
+    <ParamField body="line1" type="string">
+      Street address, P.O. box, or company name.
+    </ParamField>
+    <ParamField body="line2" type="string">
+      Apartment, suite, unit, building, floor, etc.
+    </ParamField>
+    <ParamField body="city" type="string">
+      City or town.
+    </ParamField>
+    <ParamField body="state" type="string">
+      State, province, or region.
+    </ParamField>
+    <ParamField body="postal_code" type="string">
+      ZIP or postal code.
+    </ParamField>
+    <ParamField body="country" type="string">
+      Two-letter ISO 3166-1 alpha-2 country code (e.g. `US`, `GB`, `AU`).
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="phone" type="string">
+  Phone number, preferably in E.164 format.
+</ParamField>
+
+<ParamField body="currency" type="string">
+  Default invoice currency for this client (ISO 4217). If omitted, your account's default currency is used.
+</ParamField>
+
+<ParamField body="payment_terms" type="string">
+  Default payment terms for invoices issued to this client. Accepted values: `net7`, `net15`, `net30`, `due_on_receipt`.
+</ParamField>
+
+<ParamField body="notes" type="string">
+  Internal notes about this client. Not shown to the client on invoices.
+</ParamField>
+
+### Example Request
+
+```bash
+curl -X POST https://api.einvoices.com/v1/clients \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Acme Corp",
+    "email": "billing@acme.com",
+    "phone": "+1-555-0100",
+    "currency": "USD",
+    "payment_terms": "net30",
+    "billing_address": {
+      "line1": "123 Main St",
+      "city": "Austin",
+      "state": "TX",
+      "postal_code": "78701",
+      "country": "US"
+    }
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "id": "cli_x9y8z7",
+  "name": "Acme Corp",
+  "email": "billing@acme.com",
+  "phone": "+1-555-0100",
+  "currency": "USD",
+  "payment_terms": "net30",
+  "billing_address": {
+    "line1": "123 Main St",
+    "city": "Austin",
+    "state": "TX",
+    "postal_code": "78701",
+    "country": "US"
+  },
+  "archived": false,
+  "created_at": "2024-01-15T12:00:00Z"
+}
+```
+
+---
+
+## GET /v1/clients/{id}
+
+Retrieve the full details of a single client by their ID.
+
+### Path Parameters
+
+<ParamField path="id" type="string" required>
+  The unique ID of the client (e.g. `cli_x9y8z7`).
+</ParamField>
+
+### Example Request
+
+```bash
+curl https://api.einvoices.com/v1/clients/cli_x9y8z7 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Example Response
+
+```json
+{
+  "id": "cli_x9y8z7",
+  "name": "Acme Corp",
+  "email": "billing@acme.com",
+  "phone": "+1-555-0100",
+  "currency": "USD",
+  "payment_terms": "net30",
+  "billing_address": {
+    "line1": "123 Main St",
+    "city": "Austin",
+    "state": "TX",
+    "postal_code": "78701",
+    "country": "US"
+  },
+  "archived": false,
+  "created_at": "2024-01-15T12:00:00Z"
+}
+```
+
+---
+
+## PUT /v1/clients/{id}
+
+Update an existing client's details. All body parameters are optional — send only the fields you want to change. Fields you omit remain unchanged.
+
+### Path Parameters
+
+<ParamField path="id" type="string" required>
+  The unique ID of the client to update.
+</ParamField>
+
+### Request Body
+
+All fields are optional. Refer to [POST /v1/clients](#post-v1-clients) for full field definitions.
+
+<ParamField body="name" type="string">
+  Updated client name.
+</ParamField>
+
+<ParamField body="email" type="string">
+  Updated billing email address.
+</ParamField>
+
+<ParamField body="billing_address" type="object">
+  Updated billing address. Replaces the entire address object — include all address sub-fields you want to keep.
+</ParamField>
+
+<ParamField body="phone" type="string">
+  Updated phone number.
+</ParamField>
+
+<ParamField body="currency" type="string">
+  Updated default currency.
+</ParamField>
+
+<ParamField body="payment_terms" type="string">
+  Updated default payment terms. One of `net7`, `net15`, `net30`, `due_on_receipt`.
+</ParamField>
+
+<ParamField body="notes" type="string">
+  Updated internal notes.
+</ParamField>
+
+### Example Request
+
+```bash
+curl -X PUT https://api.einvoices.com/v1/clients/cli_x9y8z7 \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "accounts@acme.com",
+    "payment_terms": "net15"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "id": "cli_x9y8z7",
+  "name": "Acme Corp",
+  "email": "accounts@acme.com",
+  "phone": "+1-555-0100",
+  "currency": "USD",
+  "payment_terms": "net15",
+  "billing_address": {
+    "line1": "123 Main St",
+    "city": "Austin",
+    "state": "TX",
+    "postal_code": "78701",
+    "country": "US"
+  },
+  "archived": false,
+  "created_at": "2024-01-15T12:00:00Z"
+}
+```
+
+---
+
+## DELETE /v1/clients/{id}
+
+Archive a client record. Archiving hides the client from default list views and prevents new invoices from being created for them, but it does **not** permanently delete the client or any of their associated invoices.
+
+<Note>
+  eInvoices uses soft-deletion (archiving) for clients rather than hard deletion. This preserves your complete invoice history and keeps your financial records intact. If you need to fully remove a client, contact support.
+</Note>
+
+### Path Parameters
+
+<ParamField path="id" type="string" required>
+  The unique ID of the client to archive.
+</ParamField>
+
+### Example Request
+
+```bash
+curl -X DELETE https://api.einvoices.com/v1/clients/cli_x9y8z7 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Example Response
+
+The response returns the updated client object with `archived` set to `true`.
+
+```json
+{
+  "id": "cli_x9y8z7",
+  "name": "Acme Corp",
+  "email": "accounts@acme.com",
+  "phone": "+1-555-0100",
+  "currency": "USD",
+  "payment_terms": "net15",
+  "billing_address": {
+    "line1": "123 Main St",
+    "city": "Austin",
+    "state": "TX",
+    "postal_code": "78701",
+    "country": "US"
+  },
+  "archived": true,
+  "created_at": "2024-01-15T12:00:00Z"
+}
+```
+
+<Note>
+  To restore an archived client, use `PUT /v1/clients/{id}` and set `"archived": false`.
+</Note>

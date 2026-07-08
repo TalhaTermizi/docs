@@ -1,0 +1,124 @@
+---
+title: "Understanding Invoices in eInvoices: A Complete Guide"
+sidebarTitle: "Invoices"
+description: "Explore invoice statuses, key fields, and number formatting, and learn how eInvoices auto-generates and delivers PDF invoices to your clients."
+---
+
+An invoice in eInvoices is the core document you send to clients to request payment for goods or services. Every invoice moves through a defined lifecycle, carries a unique auto-generated number, and can be downloaded as a professionally formatted PDF at any point — no design work required on your part.
+
+## Invoice Lifecycle
+
+Each invoice follows a predictable path from creation to resolution. Understanding where an invoice sits in its lifecycle helps you take the right action at the right time.
+
+```
+Draft → Sent → Viewed → Paid
+                      → Overdue
+                      → Void
+```
+
+1. **Draft** — The invoice exists in your account but has not been sent to the client. You can freely edit all fields at this stage.
+2. **Sent** — You have dispatched the invoice to the client via email or a shareable link. eInvoices records the send timestamp.
+3. **Viewed** — The client has opened the invoice in the client portal. A read receipt is logged automatically.
+4. **Paid** — A payment covering the full outstanding balance has been recorded against the invoice.
+5. **Overdue** — The due date has passed and the invoice remains unpaid. eInvoices transitions the invoice to this status automatically at midnight on the day after the due date.
+6. **Void** — The invoice has been cancelled and is no longer collectible. Voided invoices are retained for your records but excluded from revenue reporting.
+
+<Note>
+  Once an invoice moves out of **Draft** status, certain fields — such as the invoice number and issue date — become locked to preserve your audit trail. To make changes, either edit a copy or void the original and create a new invoice.
+</Note>
+
+## Invoice Statuses
+
+The table below summarises every status, what it means, and the actions available to you.
+
+| Status | Description | Available Actions |
+|--------|-------------|-------------------|
+| **Draft** | Created but not yet sent | Edit, Send, Delete |
+| **Sent** | Delivered to the client | View, Resend, Record Payment, Void |
+| **Viewed** | Client has opened the invoice | View, Resend, Record Payment, Void |
+| **Paid** | Fully paid | View, Download PDF, Issue Refund |
+| **Overdue** | Past due date, unpaid | View, Send Reminder, Record Payment, Void |
+| **Void** | Cancelled, not collectible | View, Duplicate |
+
+## Key Invoice Fields
+
+When you create or edit an invoice, you work with the following fields.
+
+### Header Fields
+
+| Field | Description |
+|-------|-------------|
+| **Invoice Number** | Auto-generated unique identifier. See [Invoice Number Format](#invoice-number-format) below. |
+| **Issue Date** | The date the invoice is created or formally issued. Defaults to today. |
+| **Due Date** | The date by which payment is expected. Calculated from your default payment terms, or set manually. |
+| **Client** | The client record this invoice is addressed to. Selecting a client pre-fills their billing address, currency, and payment terms. |
+| **Currency** | The currency in which the invoice is denominated. Inherits from the client record but can be overridden per invoice. |
+| **Notes** | Optional free-text field printed at the bottom of the invoice, useful for payment instructions or thank-you messages. |
+
+### Line Items
+
+Each line item represents a billable product or service. Add as many line items as you need.
+
+| Field | Description |
+|-------|-------------|
+| **Description** | Name or details of the product or service being billed. |
+| **Quantity** | Number of units delivered or hours worked. Supports decimals. |
+| **Unit Price** | Price per individual unit, in the invoice currency. |
+| **Tax** | The named tax rate to apply to this line item (e.g. *VAT 20%*). Optional; can be left blank for tax-exempt items. |
+| **Line Total** | Calculated automatically as `Quantity × Unit Price`, before tax. |
+
+### Totals
+
+eInvoices calculates all totals automatically as you add or update line items.
+
+| Field | Description |
+|-------|-------------|
+| **Subtotal** | Sum of all line totals before tax and discounts. |
+| **Discount** | A flat amount or percentage applied to the subtotal. |
+| **Tax Total** | Sum of all taxes across line items (or invoice-wide tax, if applied). |
+| **Total** | The final amount due: `Subtotal − Discount + Tax Total`. |
+
+<Tip>
+  Apply a discount at the invoice level for quick adjustments, or leave it at zero and handle discounts directly in your line item unit prices for more granular control.
+</Tip>
+
+## Invoice Number Format
+
+eInvoices assigns every invoice a unique number using a configurable prefix combined with a zero-padded sequential counter.
+
+**Default format:** `INV-0001`, `INV-0002`, `INV-0003` …
+
+You can customise the prefix to match your business or branding — for example:
+
+- `ACME-0001` for a company named Acme
+- `2024-0001` to embed the year
+- `NYC-0001` for a regional office
+
+To update your invoice number prefix, go to **Settings → Invoice Settings → Number Format**. You can also set the starting number if you are migrating from another system and want continuity with your existing invoice history.
+
+<Warning>
+  Changing the prefix does not retroactively update previously issued invoices. All new invoices after the change will use the updated prefix, so make sure you are happy with the format before you start sending invoices to clients.
+</Warning>
+
+The sequential counter increments globally across all invoices in your account, ensuring every invoice number is unique regardless of which client it belongs to.
+
+## PDF Generation
+
+eInvoices generates a PDF version of any invoice on demand — you do not need to maintain templates or install any additional software.
+
+**To download a PDF:**
+1. Open the invoice from your dashboard.
+2. Click **Download PDF** in the top-right action menu.
+3. The PDF is generated in real time and downloaded to your device.
+
+PDFs are also generated automatically in the following scenarios:
+
+- **Email delivery** — When you send an invoice by email, a PDF is attached to the message automatically.
+- **Client portal** — Clients can download a PDF directly from their portal view at any time.
+- **Payment receipt** — After a payment is recorded, eInvoices attaches a PDF copy of the invoice to the payment receipt email.
+
+<Note>
+  PDF layout and branding — including your logo, colour scheme, and footer text — are controlled in **Settings → Invoice Template**. Changes to the template apply to all future PDF downloads, including re-downloads of older invoices.
+</Note>
+
+The generated PDF includes all invoice fields, your company details, the client's billing address, an itemised line-item table, and the full totals breakdown.

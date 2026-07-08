@@ -1,13 +1,11 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
+  "projectType": "saas",
+  "projectName": "eInvoices",
+  "projectDescription": "A cloud-based e-invoicing platform that lets businesses create, send, track, and manage professional invoices and receive payments online.",
   "theme": "luma",
-  "name": "eInvoices",
-  "colors": {
-    "primary": "#2563EB",
-    "light": "#3B82F6",
-    "dark": "#1D4ED8"
-  },
-  "favicon": "/favicon.svg",
+  "primaryColor": "#2563EB",
+  "lightColor": "#3B82F6",
+  "darkColor": "#1D4ED8",
   "navigation": {
     "tabs": [
       {
@@ -81,20 +79,28 @@
       }
     ]
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@einvoices.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Sign Up Free",
-      "href": "https://app.einvoices.com/signup"
-    }
-  },
-  "footer": {
-    "socials": {}
-  }
+  "keyFeatures": [
+    "Create and customize professional invoices with your branding",
+    "Send invoices by email directly from the platform",
+    "Accept online payments via multiple payment gateways",
+    "Automate recurring invoices and payment reminders",
+    "Track invoice status — draft, sent, viewed, paid, overdue",
+    "Manage client contacts and payment history",
+    "Generate financial reports (revenue, outstanding, tax summaries)",
+    "Multi-currency and multi-tax support",
+    "REST API for programmatic invoice management",
+    "Webhooks for real-time event notifications"
+  ],
+  "publicApiSurface": [
+    "POST /v1/invoices — Create an invoice",
+    "GET /v1/invoices/{id} — Retrieve an invoice",
+    "PUT /v1/invoices/{id} — Update an invoice",
+    "DELETE /v1/invoices/{id} — Delete an invoice",
+    "POST /v1/invoices/{id}/send — Send invoice to client",
+    "GET /v1/clients — List clients",
+    "POST /v1/clients — Create a client",
+    "GET /v1/payments — List payments",
+    "POST /v1/webhooks — Register a webhook endpoint",
+    "GET /v1/reports/revenue — Revenue summary report"
+  ]
 }

@@ -1,0 +1,193 @@
+---
+title: "Send Invoices by Email and Payment Link"
+sidebarTitle: "Send Invoice"
+description: "Learn how to email invoices to clients, share payment links, and track when clients view and pay their invoices."
+---
+
+Once you've created an invoice, eInvoices gives you several ways to deliver it to your client — by email directly from the platform, via a shareable payment link, or by recording a delivery you made outside eInvoices. Every method updates the invoice status automatically so your records stay accurate.
+
+## Send by email
+
+Sending an invoice by email is the most common delivery method. eInvoices composes the email for you and attaches the PDF automatically.
+
+<Steps>
+  <Step title="Open the Send dialog">
+    From the invoice detail view, click **Send Invoice**. If the invoice is still a draft, eInvoices finalizes it before opening the send dialog.
+  </Step>
+
+  <Step title="Confirm the recipient address">
+    The **To** field defaults to the email address stored on the client's record. You can:
+
+    - Edit the address directly in the field for a one-off change (this doesn't update the client record).
+    - Add CC recipients by clicking **+ Add CC** and entering additional addresses separated by commas.
+
+    <Tip>
+      To permanently update a client's email address, go to **Clients**, open the client record, and edit the **Email** field there.
+    </Tip>
+  </Step>
+
+  <Step title="Set the subject line">
+    The subject defaults to:
+
+    ```
+    Invoice {invoice_number} from {your_business_name}
+    ```
+
+    Edit it freely. Variables like `{invoice_number}` resolve to their actual values before the email is sent.
+  </Step>
+
+  <Step title="Compose the message body">
+    The message body pre-fills with your default email template (configured in **Settings → Email Templates**). You can edit the body directly in the dialog for this send only, or update your default template to change it for all future invoices.
+
+    The following variables are available in the message body:
+
+    | Variable | Resolves to |
+    |---|---|
+    | `{client_name}` | The client's full name or business name |
+    | `{invoice_number}` | The invoice number (e.g., `INV-0042`) |
+    | `{amount_due}` | The total amount due including currency symbol |
+    | `{due_date}` | The formatted due date (e.g., `15 August 2025`) |
+    | `{payment_link}` | A clickable URL to the hosted invoice payment page |
+  </Step>
+
+  <Step title="Toggle PDF attachment">
+    The **Attach PDF** toggle is on by default. The client receives the invoice as both an inline HTML view (via the payment link) and a downloadable PDF attachment.
+
+    Turn the toggle off if you're sending to a client whose email provider strips attachments or if you prefer the client to view the invoice online only.
+  </Step>
+
+  <Step title="Send the invoice">
+    Click **Send Now** to dispatch the email immediately. The invoice status changes from `Draft` to `Sent`, and a timestamp is recorded under **Activity** on the invoice detail view.
+
+    <Note>
+      eInvoices tracks when the client opens the email and views the invoice. Watch for the `Viewed` status badge to know your client has seen it.
+    </Note>
+  </Step>
+</Steps>
+
+---
+
+## Share a payment link
+
+Every invoice has a unique, shareable payment link that opens a hosted invoice page in the client's browser — no login required. Use this link to deliver invoices over messaging apps, in proposals, or anywhere email isn't ideal.
+
+### Copy the payment link
+
+1. Open the invoice detail view.
+2. Click **Copy Payment Link** (below the **Send Invoice** button).
+3. Paste the link anywhere — a chat message, proposal document, client portal, or email you compose yourself.
+
+The hosted invoice page shows:
+- Your logo and brand colors
+- All invoice details: line items, taxes, discount, total, and due date
+- A **Pay Now** button (if online payments are enabled in **Settings → Payments**)
+- A **Download PDF** button
+
+<Note>
+  Payment links remain active as long as the invoice is open. Once the invoice is marked as paid or void, the link shows a "This invoice is no longer active" message.
+</Note>
+
+<Warning>
+  Payment links do not require authentication. Anyone with the link can view the invoice. Avoid posting payment links in public channels.
+</Warning>
+
+---
+
+## Mark an invoice as sent manually
+
+If you delivered an invoice outside eInvoices — for example, you handed a printed copy to a client or sent the PDF from your personal email — record the delivery so your eInvoices records stay accurate.
+
+1. Open the invoice detail view.
+2. Click the **⋮** (More actions) menu.
+3. Select **Mark as Sent**.
+4. Confirm the action in the dialog. eInvoices updates the invoice status to `Sent` and logs the event with the current timestamp.
+
+<Note>
+  Marking an invoice as sent manually does **not** send any email. It only updates the invoice status in eInvoices.
+</Note>
+
+---
+
+## Resend an invoice or send a reminder
+
+### Resend the invoice email
+
+To resend the original invoice email — for example, if your client says they didn't receive it:
+
+1. Open the invoice detail view.
+2. Click **Resend Invoice**.
+3. Confirm or edit the recipient, subject, and message body.
+4. Click **Send Now**.
+
+Resending doesn't create a new invoice or change the invoice number. The activity log records each delivery separately.
+
+### Send a manual reminder
+
+To send a one-off payment reminder for a specific invoice:
+
+1. Open the invoice detail view.
+2. Click **Send Reminder**.
+3. The reminder dialog pre-fills with your default reminder template. Edit the subject or message if needed.
+4. Click **Send Reminder**.
+
+The reminder appears in the **Reminders** tab of the invoice detail view with a sent timestamp.
+
+<Tip>
+  For automated reminders that trigger N days before or after the due date, see [Payment Reminders](/guides/payment-reminders).
+</Tip>
+
+---
+
+## What your client sees
+
+When a client receives an invoice email from eInvoices, here's what their experience looks like:
+
+<Tabs>
+  <Tab title="Email inbox">
+    The client receives a branded email containing:
+
+    - Your business name, logo, and reply-to address
+    - A summary line: invoice number, amount due, and due date
+    - The message body you composed
+    - A prominent **View & Pay Invoice** button linking to the hosted invoice page
+    - The PDF as an attachment (if the Attach PDF toggle was on)
+
+    The email is sent from `invoices@einvoices.io` with your business name as the display sender (e.g., `Acme Design via eInvoices`). Replies go to your registered business email address.
+  </Tab>
+  <Tab title="Hosted invoice page">
+    Clicking **View & Pay Invoice** opens a mobile-responsive hosted page showing:
+
+    | Section | Contents |
+    |---|---|
+    | **Header** | Your logo, business name, and contact details |
+    | **Invoice details** | Invoice number, issue date, due date |
+    | **Bill To** | Client name and billing address |
+    | **Line items** | Description, quantity, unit price, tax, and amount per row |
+    | **Totals** | Subtotal, discount (if any), total tax, and amount due |
+    | **Notes** | Your payment instructions or thank-you message |
+    | **Pay Now** | Payment button (credit card, bank transfer, etc.) |
+    | **Download PDF** | Link to download the invoice as a PDF |
+  </Tab>
+  <Tab title="After payment">
+    After your client completes payment:
+
+    - The hosted page shows a **Payment Received** confirmation with the payment date and amount.
+    - The **Pay Now** button is replaced by a receipt download link.
+    - You receive an email notification and the invoice status updates to `Paid` in eInvoices.
+    - The client receives an automatic payment receipt email.
+  </Tab>
+</Tabs>
+
+---
+
+## Invoice status reference
+
+| Status | Meaning |
+|---|---|
+| `Draft` | Invoice created but not sent |
+| `Sent` | Invoice emailed or marked as sent |
+| `Viewed` | Client has opened the hosted invoice page |
+| `Partial` | Client has paid part of the invoice total |
+| `Paid` | Invoice fully paid |
+| `Overdue` | Past due date with no full payment |
+| `Void` | Invoice cancelled; no longer payable |

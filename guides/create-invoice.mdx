@@ -1,0 +1,176 @@
+---
+title: "Create a Professional Invoice in eInvoices"
+sidebarTitle: "Create Invoice"
+description: "Follow this step-by-step guide to create, customize, and preview a professional invoice — with line items, taxes, and discounts."
+---
+
+Creating an invoice in eInvoices takes just a few minutes. The invoice builder walks you through every field — from selecting a client and adding line items to applying discounts and previewing the finished PDF — so you can send polished, accurate invoices every time.
+
+## Create a new invoice
+
+<Steps>
+  <Step title="Go to Invoices → New Invoice">
+    In the left sidebar, click **Invoices**, then click the **New Invoice** button in the top-right corner. The invoice builder opens in a full-page editor.
+  </Step>
+
+  <Step title="Select or create a client">
+    In the **Bill To** section, start typing a client name in the search field. eInvoices searches your client list as you type.
+
+    - **Existing client** — Select the client from the dropdown. Their billing address and default currency populate automatically.
+    - **New client** — Click **+ Create client**, fill in the name, email, and billing address in the side panel, then click **Save**. The new client is selected immediately.
+
+    <Tip>
+      You can manage client details later from the **Clients** section without losing any draft invoices linked to them.
+    </Tip>
+  </Step>
+
+  <Step title="Set invoice number, issue date, and due date">
+    eInvoices auto-increments the **Invoice Number** based on your last invoice. You can override it manually if you follow a custom numbering scheme.
+
+    | Field | Description |
+    |---|---|
+    | **Invoice Number** | Unique identifier for this invoice (e.g., `INV-0042`) |
+    | **Issue Date** | The date the invoice is created; defaults to today |
+    | **Due Date** | The payment deadline; choose from net-7, net-15, net-30, net-60, or a custom date |
+    | **Currency** | Inherited from the client; change it per invoice if needed |
+    | **PO Number** | Optional purchase order reference for the client's records |
+
+    <Note>
+      Your default payment terms (e.g., net-30) are set in **Settings → Invoice Defaults** and applied automatically to every new invoice.
+    </Note>
+  </Step>
+
+  <Step title="Add line items">
+    Click **+ Add Line Item** to add a row to the line-items table. Each row has four fields:
+
+    | Column | Description |
+    |---|---|
+    | **Description** | The product or service name; supports multi-line text |
+    | **Qty** | Quantity (supports decimals, e.g., `2.5` hours) |
+    | **Unit Price** | Price per unit in the invoice currency |
+    | **Tax** | Select a saved tax rate or type a one-off percentage |
+
+    The **Amount** column calculates automatically (`Qty × Unit Price`). Tax is applied per line item, letting you mix taxable and non-taxable items on the same invoice.
+
+    Click the **⋮** menu on any row to duplicate or delete it. Drag rows by the handle on the left to reorder them.
+
+    <Tip>
+      Save frequently used items — such as hourly consulting rates or standard product SKUs — in **Settings → Products & Services** so you can add them with a single click.
+    </Tip>
+  </Step>
+
+  <Step title="Apply a discount (optional)">
+    Below the line-items table, toggle **Add Discount** to reveal the discount field. Choose the discount type, then enter the value.
+
+    <Tabs>
+      <Tab title="Fixed amount">
+        Enter a flat currency amount to deduct from the subtotal (e.g., `50.00`). The discount is applied after all line-item amounts are summed but before tax.
+      </Tab>
+      <Tab title="Percentage">
+        Enter a percentage between `0` and `100` (e.g., `10` for 10 %). eInvoices calculates the discount as a percentage of the pre-tax subtotal and shows the derived amount in grey.
+      </Tab>
+    </Tabs>
+
+    <Note>
+      Discounts are applied to the overall subtotal, not to individual line items. If you need item-level discounts, adjust the unit price for that row directly.
+    </Note>
+  </Step>
+
+  <Step title="Add notes and payment terms">
+    Use the two text areas at the bottom of the invoice to communicate extra information to your client.
+
+    - **Notes** — Visible on the PDF invoice. Use this for project references, thank-you messages, or delivery instructions.
+    - **Payment Terms** — Also visible on the PDF. Describe accepted payment methods, late-payment penalties, or bank transfer details.
+
+    Both fields support plain text and preserve line breaks in the rendered PDF.
+
+    <Tip>
+      Save your standard payment terms in **Settings → Invoice Defaults** so they pre-fill on every new invoice automatically.
+    </Tip>
+  </Step>
+
+  <Step title="Preview the PDF">
+    Click **Preview** (top-right of the editor) to open a live PDF render in a side panel. The preview updates every time you make a change, so you can verify layout, totals, and formatting before sending.
+
+    Check the preview for:
+    - Correct client name and billing address
+    - Accurate line-item amounts and tax calculations
+    - Discount applied and reflected in the total
+    - Your logo and brand colors (configured in **Settings → Branding**)
+
+    <Warning>
+      If your logo appears blurry in the preview, upload a PNG or SVG at least 400 × 400 px in **Settings → Branding**.
+    </Warning>
+  </Step>
+
+  <Step title="Save as Draft or Send immediately">
+    When you're happy with the invoice, choose how to proceed:
+
+    - **Save as Draft** — Saves the invoice without sending it. The invoice appears in **Invoices** with a `Draft` status badge and can be edited or sent later.
+    - **Send Invoice** — Opens the send dialog where you confirm the recipient email, subject line, and message before dispatching. See [Send an Invoice](/guides/send-invoice) for full details.
+
+    <Note>
+      Draft invoices are never visible to your client. Only invoices with a `Sent` status have been delivered.
+    </Note>
+  </Step>
+</Steps>
+
+---
+
+## Duplicate an existing invoice
+
+Duplicating is the fastest way to create a new invoice that shares the same client, line items, and terms as a previous one.
+
+1. Open the invoice you want to copy from the **Invoices** list.
+2. Click the **⋮** (More actions) menu in the top-right of the invoice detail view.
+3. Select **Duplicate Invoice**.
+
+eInvoices creates a new draft with:
+- The same client, line items, taxes, discount, notes, and payment terms
+- A new auto-incremented invoice number
+- Today's date as the issue date
+- A recalculated due date based on your default payment terms
+
+Edit any field before saving or sending. The original invoice is not affected.
+
+---
+
+## Import line items from CSV
+
+If your invoice contains many line items — such as a detailed project timesheet or a bulk product order — you can import them all at once using a CSV file instead of adding rows one by one.
+
+### CSV format
+
+Your CSV must use the following column headers in the first row:
+
+| Column | Required | Description |
+|---|---|---|
+| `description` | ✅ Yes | Line item name or description |
+| `quantity` | ✅ Yes | Numeric quantity (e.g., `3` or `1.5`) |
+| `unit_price` | ✅ Yes | Price per unit, without currency symbol (e.g., `250.00`) |
+| `tax_rate` | ✅ Yes | Tax rate as a percentage (e.g., `20` for 20 %); use `0` for no tax |
+
+**Example CSV:**
+
+```csv
+description,quantity,unit_price,tax_rate
+Website design,1,1500.00,20
+Logo design,1,500.00,20
+Hosting setup,1,150.00,0
+Content migration,8,75.00,20
+```
+
+### Import steps
+
+1. In the invoice builder, click **Import Line Items** (above the line-items table).
+2. Click **Choose File** and select your `.csv` file.
+3. Review the parsed rows in the confirmation dialog — correct any errors highlighted in red.
+4. Click **Import** to add all rows to the invoice.
+
+<Warning>
+  Importing line items **replaces** any existing rows on the invoice. Download a copy of your current line items first if you want to preserve them.
+</Warning>
+
+<Tip>
+  Prepare your CSV file with these columns and import it directly into the line items section.
+</Tip>

@@ -1,0 +1,168 @@
+---
+title: "Sync Invoices with QuickBooks and Xero"
+sidebarTitle: "Accounting"
+description: "Connect eInvoices to QuickBooks or Xero to automatically sync clients, invoices, and payments to your accounting software."
+---
+
+Connecting eInvoices to your accounting software eliminates double entry and keeps your books accurate without any extra effort. When you create an invoice, update a client, or record a payment in eInvoices, the data flows to QuickBooks or Xero automatically in real time. Both integrations use a secure OAuth connection, so no passwords are stored and you can revoke access at any time.
+
+## What Syncs
+
+The following data is pushed from eInvoices to your accounting platform each time a change occurs:
+
+| Data Type | Notes |
+|---|---|
+| **Clients / Contacts** | Matched by email address. New clients are created; existing ones are updated. |
+| **Invoices** | Invoice number, line items, quantities, unit prices, due dates, and status. |
+| **Payments** | Amount received, payment date, and payment method. |
+| **Tax Codes** | Imported from your accounting platform during initial setup and kept in sync. |
+
+<Note>
+  The sync direction is **one-way**: eInvoices → accounting software. Changes you make directly in QuickBooks or Xero are not pulled back into eInvoices. If you update a client's address in Xero, that change will not appear in eInvoices automatically — make the update in eInvoices to keep both systems aligned.
+</Note>
+
+---
+
+## Connect Your Accounting Software
+
+<Tabs>
+  <Tab title="QuickBooks">
+    QuickBooks Online uses an OAuth 2.0 flow. eInvoices will redirect you to Intuit's login page where you authorize access to your QuickBooks company file.
+
+    <Steps>
+      <Step title="Open Integrations Settings">
+        In your eInvoices dashboard, go to **Settings → Integrations**.
+      </Step>
+      <Step title="Find the QuickBooks Card">
+        Locate the **QuickBooks Online** card and click **Connect**.
+      </Step>
+      <Step title="Sign In to Intuit">
+        You are redirected to Intuit's authorization page. Sign in with your QuickBooks Online credentials if you are not already logged in.
+      </Step>
+      <Step title="Authorize Access">
+        Select the **QuickBooks company file** you want to link, then click **Connect**. Intuit returns you to the eInvoices dashboard.
+      </Step>
+      <Step title="Run the Initial Sync">
+        eInvoices immediately imports your existing tax codes and customer list from QuickBooks. This initial sync typically completes within two minutes. You can monitor progress under **Settings → Integrations → QuickBooks → Sync Log**.
+      </Step>
+      <Step title="Confirm the Connection">
+        The QuickBooks card now shows a green **Connected** badge and a **Last synced** timestamp. You are ready to go.
+      </Step>
+    </Steps>
+
+    <Warning>
+      To prevent duplicate contacts, eInvoices matches clients to QuickBooks customers by **email address**. Before connecting, make sure the email addresses on your eInvoices clients match those in QuickBooks. If a match is not found, a new customer record is created in QuickBooks. You can merge duplicates inside QuickBooks if needed after the initial sync.
+    </Warning>
+
+    ### Sync Details
+
+    - **New invoices** are pushed to QuickBooks as *Invoices* within seconds of being created in eInvoices.
+    - **Payments** are pushed as *Receive Payment* transactions linked to the corresponding invoice.
+    - **Tax codes** must exist in QuickBooks before they can be used on eInvoices line items. Tax codes are refreshed every hour and whenever you manually resync.
+    - **Currency**: eInvoices sends invoices in the currency set on the invoice. If the currency does not match the QuickBooks company's home currency and multi-currency is not enabled in QuickBooks, the sync will fail with a currency mismatch error. Enable multi-currency in QuickBooks or invoice only in your home currency to resolve this.
+
+    ### Manual Resync
+
+    To force a full resync of all unsynced records, go to **Settings → Integrations → QuickBooks** and click **Resync Now**. This is useful after resolving an error or after making bulk changes to clients or invoices.
+
+    ### Disconnecting QuickBooks
+
+    <Steps>
+      <Step title="Go to Integration Settings">
+        Navigate to **Settings → Integrations → QuickBooks**.
+      </Step>
+      <Step title="Click Disconnect">
+        Click **Disconnect** and confirm the prompt. eInvoices revokes its OAuth token immediately.
+      </Step>
+      <Step title="Verify Your Data">
+        All data previously synced to QuickBooks remains in QuickBooks. No data is deleted in eInvoices or in QuickBooks when you disconnect. Future changes in eInvoices will no longer sync until you reconnect.
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Xero">
+    Xero uses an OAuth 2.0 flow. eInvoices will redirect you to Xero's login page where you authorize access to your Xero organisation.
+
+    <Steps>
+      <Step title="Open Integrations Settings">
+        In your eInvoices dashboard, go to **Settings → Integrations**.
+      </Step>
+      <Step title="Find the Xero Card">
+        Locate the **Xero** card and click **Connect**.
+      </Step>
+      <Step title="Sign In to Xero">
+        You are redirected to Xero's authorization page. Sign in with your Xero credentials if you are not already logged in.
+      </Step>
+      <Step title="Select Your Organisation">
+        If you have access to multiple Xero organisations, select the one you want to link to eInvoices, then click **Allow access**.
+      </Step>
+      <Step title="Run the Initial Sync">
+        eInvoices imports your existing tax rates and contacts from Xero. This initial sync typically completes within two minutes. Monitor progress under **Settings → Integrations → Xero → Sync Log**.
+      </Step>
+      <Step title="Confirm the Connection">
+        The Xero card now shows a green **Connected** badge and a **Last synced** timestamp. You are ready to go.
+      </Step>
+    </Steps>
+
+    <Warning>
+      To prevent duplicate contacts, eInvoices matches clients to Xero contacts by **email address**. Before connecting, confirm that the email addresses on your eInvoices clients match those in Xero. If no match is found, a new contact record is created in Xero. You can merge duplicates inside Xero after the initial sync using Xero's built-in contact merge feature.
+    </Warning>
+
+    ### Sync Details
+
+    - **New invoices** are pushed to Xero as *Approved Invoices* (ACCREC type) within seconds of creation.
+    - **Payments** are pushed as *Invoice Payments* linked to the corresponding invoice, using the bank account you designate in **Settings → Integrations → Xero → Payment Account**.
+    - **Tax rates** are imported from Xero during setup and re-imported every hour. Apply them to line items via the tax rate selector on each invoice.
+    - **Currency**: eInvoices sends invoices in their set currency. Xero must have the corresponding currency enabled under **Xero Settings → Currencies**. If the currency is not enabled, the sync fails with a currency error. Add the currency in Xero and then click **Resync Now** to retry.
+
+    ### Manual Resync
+
+    To force a full resync, go to **Settings → Integrations → Xero** and click **Resync Now**. Use this after resolving errors or after modifying existing records in bulk.
+
+    ### Disconnecting Xero
+
+    <Steps>
+      <Step title="Go to Integration Settings">
+        Navigate to **Settings → Integrations → Xero**.
+      </Step>
+      <Step title="Click Disconnect">
+        Click **Disconnect** and confirm the prompt. eInvoices revokes its OAuth token immediately.
+      </Step>
+      <Step title="Verify Your Data">
+        All data previously synced to Xero remains in Xero. No data is deleted in eInvoices or in Xero when you disconnect. Future changes in eInvoices will no longer sync until you reconnect.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+---
+
+## Common Issues
+
+### Duplicate Contacts
+
+Both integrations match records by email address. If a client in eInvoices has a different email address than the corresponding customer or contact in your accounting software, two separate records are created.
+
+**Fix:** Before connecting, audit your client list in eInvoices and ensure email addresses match those in QuickBooks or Xero. After an unintentional duplicate is created, merge the records within your accounting software — the merge does not affect data in eInvoices.
+
+### Currency Mismatches
+
+If you invoice in a currency that is not enabled in your accounting platform, the sync fails for that invoice.
+
+**Fix:** Enable the currency in QuickBooks (Accounts → Currencies) or Xero (Settings → Currencies), then click **Resync Now** in eInvoices to re-attempt the failed records.
+
+### Expired OAuth Token
+
+OAuth tokens expire or are revoked when you change your accounting software password, revoke access within the accounting platform, or after an extended period of inactivity.
+
+**Fix:** Go to **Settings → Integrations**, click the affected card, and click **Reconnect**. You will be taken through the OAuth flow again. All queued sync events are retried automatically once the token is refreshed.
+
+### Tax Code Not Found
+
+If you add a new tax code in eInvoices that does not yet exist in your accounting software, the sync fails for line items using that code.
+
+**Fix:** Create the matching tax code in QuickBooks or Xero first, then return to **Settings → Integrations** and click **Resync Tax Codes** to import it into eInvoices.
+
+<Tip>
+  Check the **Sync Log** regularly — especially after making bulk changes — to catch and resolve errors before they accumulate. Each log entry shows the affected record, the error message, and a direct link to the record in eInvoices so you can correct it quickly.
+</Tip>

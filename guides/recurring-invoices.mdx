@@ -1,0 +1,176 @@
+---
+title: "Automate Billing with Recurring Invoices"
+sidebarTitle: "Recurring Invoices"
+description: "Set up recurring invoices to automatically generate and send invoices on a weekly, monthly, or custom schedule to your clients."
+---
+
+A recurring invoice is a reusable billing template that eInvoices uses to automatically generate new invoices on a schedule you define. Instead of manually recreating the same invoice every month for a retainer client or subscription service, you configure the template once and let eInvoices handle the rest. You can choose to auto-send the generated invoice or save it as a draft for review before it goes out.
+
+## How recurring invoices work
+
+When you set up a recurring invoice, eInvoices stores a **template** — not a live invoice. On each scheduled date, eInvoices creates a new invoice from the template, assigns it the next available invoice number, sets a fresh issue date and due date, and either sends it immediately or saves it as a draft, depending on your auto-send setting.
+
+Generated invoices are independent of the template. Editing the template later affects only future invoices — invoices that have already been generated are not changed.
+
+---
+
+## Set up a recurring invoice
+
+<Steps>
+  <Step title="Open the recurring invoice builder">
+    In the left sidebar, click **Invoices**, then click the dropdown arrow next to **New Invoice** and select **New Recurring Invoice**. Alternatively, open any existing invoice and choose **Make Recurring** from the **⋮** (More actions) menu to pre-fill the template with that invoice's details.
+  </Step>
+
+  <Step title="Select a client">
+    In the **Bill To** field, search for and select the client this recurring invoice is for. All generated invoices will be billed to this client.
+
+    <Tip>
+      You can only assign one client per recurring invoice template. To bill multiple clients on the same schedule, create a separate recurring invoice for each.
+    </Tip>
+  </Step>
+
+  <Step title="Add line items, taxes, and discounts">
+    Fill in the line items exactly as you would for a standard invoice — description, quantity, unit price, and tax rate for each row. Apply a fixed or percentage discount if needed.
+
+    These line items appear on every generated invoice. If prices change over time, edit the template and the new rates will apply to future invoices only.
+  </Step>
+
+  <Step title="Configure the recurring schedule">
+    Under **Recurring Schedule**, set the following fields:
+
+    | Field | Options / Description |
+    |---|---|
+    | **Frequency** | Weekly, Monthly, Quarterly, or Annually |
+    | **Start Date** | The date the first invoice is generated; defaults to today |
+    | **End Condition** | Choose **No end date**, **End after N occurrences**, or **End on specific date** |
+
+    <Tabs>
+      <Tab title="Weekly">
+        An invoice is generated every 7 days from the start date. Useful for weekly contractors or short-cycle service agreements.
+      </Tab>
+      <Tab title="Monthly">
+        An invoice is generated on the same day each month (e.g., every 1st). If the start date is the 31st, eInvoices uses the last day of the month for shorter months.
+      </Tab>
+      <Tab title="Quarterly">
+        An invoice is generated every three months from the start date. Suitable for quarterly retainers or subscription services billed every quarter.
+      </Tab>
+      <Tab title="Annually">
+        An invoice is generated once per year on the anniversary of the start date. Ideal for annual service agreements or yearly licensing fees.
+      </Tab>
+    </Tabs>
+
+    **Example — 12-month monthly retainer:**
+    - Frequency: Monthly
+    - Start Date: 1 August 2025
+    - End Condition: End after **12** occurrences
+
+    eInvoices will generate invoices on 1 Aug, 1 Sep, 1 Oct … through 1 Jul 2026, then stop.
+  </Step>
+
+  <Step title="Set the due date rule">
+    Choose how the due date is calculated for each generated invoice:
+
+    - **Net-7 / Net-15 / Net-30 / Net-60** — Due N days after the issue date
+    - **Custom days** — Enter any number of days
+    - **Same as issue date** — Payment due on receipt
+
+    The due date rule is applied fresh each time an invoice is generated, so if the issue date is 1 August and the rule is Net-30, the due date is 31 August.
+  </Step>
+
+  <Step title="Choose auto-send or draft">
+    Under **When a new invoice is generated**, select one of the following:
+
+    - **Auto-send** — eInvoices emails the generated invoice to the client automatically using your default email template. No action required from you.
+    - **Save as draft** — The invoice is created with `Draft` status and waits for you to review and send it manually.
+
+    <Note>
+      If you choose **Auto-send**, make sure the client record has a valid email address before activating the recurring invoice. eInvoices validates this when you save the template.
+    </Note>
+  </Step>
+
+  <Step title="Add notes and payment terms">
+    Enter any notes or payment terms to include on every generated invoice. These can reference the service period or subscription details your client needs to see.
+  </Step>
+
+  <Step title="Save the recurring invoice">
+    Click **Save Recurring Invoice**. The template is now active. You can find it under **Invoices → Recurring** at any time.
+
+    eInvoices confirms the next scheduled generation date. On that date, the first invoice is created automatically.
+  </Step>
+</Steps>
+
+<Note>
+  Changes you make to a recurring invoice template apply to **future** generated invoices only. Invoices that have already been generated are independent documents — editing the template does not modify them retroactively.
+</Note>
+
+---
+
+## Edit a recurring invoice template
+
+1. Navigate to **Invoices → Recurring**.
+2. Click the template name to open it.
+3. Click **Edit Template**.
+4. Make your changes — update line items, prices, schedule, or auto-send settings.
+5. Click **Save Changes**.
+
+A confirmation banner reminds you that only future invoices will reflect the changes. Any invoices already generated remain unchanged.
+
+<Warning>
+  If you need to correct an invoice that has already been generated, open that specific invoice from the **Invoices** list and edit it directly. Changes there affect only that single invoice.
+</Warning>
+
+---
+
+## Pause a recurring invoice
+
+Pausing a recurring invoice stops new invoices from being generated without deleting the template. This is useful during a project pause, a client dispute, or a seasonal gap in services.
+
+1. Go to **Invoices → Recurring**.
+2. Find the template and click the **⋮** menu.
+3. Select **Pause**.
+
+The template status changes to `Paused` and no invoices are generated while it's paused. The scheduled dates are not preserved — when you resume, the next invoice generates based on the original frequency from the resume date onward.
+
+To **resume** a paused template:
+1. Open the paused template.
+2. Click **Resume**.
+3. Confirm the new next-generation date in the dialog.
+
+---
+
+## Cancel a recurring invoice
+
+Cancelling permanently stops the recurring invoice. This action cannot be undone.
+
+1. Go to **Invoices → Recurring**.
+2. Click the **⋮** menu on the template.
+3. Select **Cancel Recurring Invoice**.
+4. Type `CANCEL` in the confirmation field and click **Confirm**.
+
+The template status changes to `Cancelled`. All previously generated invoices remain intact and are unaffected.
+
+<Tip>
+  If there's any chance you'll restart billing for this client, consider pausing instead of cancelling. A paused template is easier to reactivate than recreating a cancelled one from scratch.
+</Tip>
+
+---
+
+## View generated invoices
+
+Every invoice generated from a recurring template is linked back to its source.
+
+1. Open the recurring invoice template from **Invoices → Recurring**.
+2. Scroll to the **Generated Invoices** section.
+
+You'll see a table listing each generated invoice with its number, issue date, due date, amount, and current status (`Draft`, `Sent`, `Paid`, `Overdue`, etc.). Click any row to open that invoice directly.
+
+---
+
+## Recurring invoice status reference
+
+| Status | Meaning |
+|---|---|
+| `Active` | Generating invoices on schedule |
+| `Paused` | Temporarily stopped; can be resumed |
+| `Cancelled` | Permanently stopped; no new invoices will be generated |
+| `Completed` | All scheduled occurrences have been generated |

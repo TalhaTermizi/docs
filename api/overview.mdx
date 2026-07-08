@@ -1,0 +1,135 @@
+---
+title: "eInvoices REST API Overview: Auth, Limits, and Pagination"
+sidebarTitle: "Overview"
+description: "The eInvoices REST API lets you create and manage invoices, clients, and payments programmatically. Base URL, auth, rate limits, and pagination."
+---
+
+The eInvoices REST API gives you full programmatic access to your invoicing data — create invoices, manage clients, record payments, and configure webhooks directly from your own application or automation scripts. Every feature available in the eInvoices dashboard is also available through the API, so you can build deeply integrated billing workflows tailored to your business.
+
+## Base URL
+
+All API requests must be made over HTTPS to the following base URL:
+
+```
+https://api.einvoices.com/v1
+```
+
+Unencrypted HTTP requests are rejected. Always include the version prefix (`/v1`) in every request URL — see [Versioning](#versioning) below for details.
+
+## Request and Response Format
+
+The eInvoices API follows REST conventions. Send request bodies as JSON and set the `Content-Type` header to `application/json` on any request that includes a body. Every successful response returns a JSON object.
+
+```bash
+curl https://api.einvoices.com/v1/invoices \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```json
+{
+  "data": [...],
+  "next_cursor": "cur_abc123",
+  "has_more": true
+}
+```
+
+<Note>
+  All timestamps in request and response bodies use **ISO 8601 format** in UTC,
+  for example `2024-11-15T09:30:00Z`.
+</Note>
+
+## Authentication
+
+Authenticate every request by passing your API key as a Bearer token in the `Authorization` header:
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+You generate API keys in your dashboard under **Settings → API → New API Key**. The API supports both live keys (prefix `live_`) and test keys (prefix `test_`). Requests made with a missing or invalid key return `401 Unauthorized`.
+
+See the [Authentication](/api/authentication) page for full details on key types, permissions, and security best practices.
+
+## Rate Limits
+
+The API enforces a limit of **100 requests per minute** per API key. If you exceed this limit, the API returns a `429 Too Many Requests` response and includes a `Retry-After` header indicating how many seconds to wait before retrying.
+
+```
+HTTP/1.1 429 Too Many Requests
+Retry-After: 12
+```
+
+<Tip>
+  Build exponential backoff into your integration from the start. When you
+  receive a `429`, read the `Retry-After` value and pause for at least that many
+  seconds before sending your next request.
+</Tip>
+
+## Pagination
+
+List endpoints return results using **cursor-based pagination**. Use the `limit` and `cursor` query parameters to navigate through result sets.
+
+| Parameter | Type    | Description                                      |
+| --------- | ------- | ------------------------------------------------ |
+| `limit`   | integer | Number of records to return. Max `100`, default `20`. |
+| `cursor`  | string  | Opaque cursor pointing to the next page of results. |
+
+Every list response includes:
+
+| Field         | Type    | Description                                              |
+| ------------- | ------- | -------------------------------------------------------- |
+| `data`        | array   | The array of resource objects for the current page.      |
+| `next_cursor` | string  | Pass this value as `cursor` to fetch the next page. `null` when there are no more results. |
+| `has_more`    | boolean | `true` when additional pages exist beyond the current one. |
+
+**Example — fetch the second page of invoices:**
+
+```bash
+curl "https://api.einvoices.com/v1/invoices?limit=50&cursor=cur_abc123" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```json
+{
+  "data": [...],
+  "next_cursor": "cur_def456",
+  "has_more": true
+}
+```
+
+When `has_more` is `false`, you have reached the last page and `next_cursor` is `null`.
+
+<Note>
+  Cursors are opaque strings — do not attempt to parse or construct them
+  manually. Always use the `next_cursor` value returned by the previous
+  response.
+</Note>
+
+## Versioning
+
+The current API version is **v1**, indicated by the `/v1` segment in the base URL. When breaking changes are introduced, eInvoices releases a new version under a new URL path (for example `/v2`). The older version remains available and fully supported during a transition period.
+
+eInvoices sends deprecation notices by **email to your account's registered address at least 90 days** before an older version is retired. You can also monitor the [eInvoices status page](https://status.einvoices.com) and changelog for upcoming changes.
+
+<Warning>
+  Pin your integration to a specific version path (for example
+  `https://api.einvoices.com/v1/...`). Never rely on a versionless URL, as this
+  could expose your integration to unexpected breaking changes.
+</Warning>
+
+## Available Resources
+
+The eInvoices API exposes the following top-level resources:
+
+| Resource                       | Description                                                                 |
+| ------------------------------ | --------------------------------------------------------------------------- |
+| [Invoices](/api/invoices)      | Create, update, send, and void invoices. Retrieve line items and status.    |
+| [Clients](/api/clients)        | Manage client profiles including billing addresses and contact information. |
+| [Payments](/api/payments)      | Record manual payments and retrieve payment history against invoices.       |
+| [Webhooks](/api/webhooks)      | Register endpoint URLs to receive real-time event notifications.            |
+
+## Errors
+
+The API returns standard HTTP status codes. All error responses include a JSON body with an `error` object containing a `code`, a human-readable `message`, and an optional `details` array for validation errors.
+
+See the [Errors](/api/errors) reference for a complete list of status codes and error codes.

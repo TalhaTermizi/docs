@@ -1,0 +1,197 @@
+---
+title: "Troubleshoot Common eInvoices Issues"
+sidebarTitle: "Troubleshooting"
+description: "Fix common issues with invoices, payments, integrations, and account access in eInvoices with step-by-step troubleshooting guidance."
+---
+
+Most issues in eInvoices can be resolved in just a few steps. Work through the relevant section below to diagnose and fix your problem — each accordion covers a specific symptom, explains what typically causes it, and walks you through the solution. If you exhaust the steps here and the issue persists, contact our support team using the details at the bottom of this page.
+
+---
+
+## Invoice Issues
+
+<AccordionGroup>
+
+  <Accordion title="Invoice shows as 'Sent' but my client hasn't received it">
+    The **Sent** status confirms that eInvoices successfully handed the email to the delivery provider, but the message may still be held up before it reaches your client's inbox.
+
+    **Steps to resolve:**
+
+    1. Ask your client to check their **Spam** or **Junk** folder and mark the email as "Not spam" to ensure future invoices land in their inbox.
+    2. Open the invoice in eInvoices, click **Actions → View Activity**, and confirm the email address on record is correct.
+    3. If the address is wrong, click **Edit**, update the client's email, save the invoice, and click **Resend**.
+    4. If the address is correct but the email still hasn't arrived after 30 minutes, click **Resend** from the invoice detail page — this triggers a fresh delivery attempt.
+
+    <Tip>
+      Ask your client to add **noreply@einvoices.com** to their contacts or safe-senders list to prevent future invoices from being filtered.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="PDF won't generate or is stuck loading">
+    PDF generation relies on your browser rendering an invoice preview before converting it to a file. Browser extensions, outdated versions, or a stale cache can all interrupt this process.
+
+    **Steps to resolve:**
+
+    1. **Check your browser.** eInvoices PDF export is fully supported on the latest versions of Chrome, Edge, Firefox, and Safari. If you're on an older or unsupported browser, update it or switch to Chrome.
+    2. **Disable browser extensions.** Ad blockers and privacy extensions sometimes block the rendering scripts that power PDF generation. Open an incognito/private window (extensions are disabled by default there) and try generating the PDF again.
+    3. **Clear your browser cache.** In Chrome: **Settings → Privacy and Security → Clear Browsing Data → Cached images and files**. Then reload the invoice page and try again.
+    4. If the PDF still won't generate, open your browser's developer console (F12), reproduce the issue, and copy any red error messages to include in a support ticket.
+
+    <Note>
+      Large invoices with many line items can take up to 30 seconds to generate. Wait for the spinner to complete before assuming there's an error.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Invoice total doesn't match the amount I expected">
+    A mismatched total is almost always caused by a misconfigured tax rate, a discount applied in the wrong format, or a rounding difference.
+
+    **Steps to resolve:**
+
+    1. Open the invoice and click **Edit**.
+    2. **Check tax rate assignment.** Scroll to each line item and confirm the correct tax rate is applied. A line item using a 20% rate instead of 10% will skew the total — click the tax dropdown on each line to verify.
+    3. **Check your discount format.** eInvoices supports both fixed-amount discounts (e.g., $50 off) and percentage discounts (e.g., 10% off). Make sure the **%** or **$** toggle next to the discount field is set to the format you intended.
+    4. **Check whether tax is applied before or after the discount.** Go to **Settings → Taxes** and confirm your tax calculation order matches your expectation (tax-inclusive vs. tax-exclusive pricing).
+
+    <Warning>
+      Changing tax settings at the account level affects all future invoices but does not retroactively update previously saved invoices. Edit individual invoices if you need to correct historical records.
+    </Warning>
+  </Accordion>
+
+</AccordionGroup>
+
+---
+
+## Payment Issues
+
+<AccordionGroup>
+
+  <Accordion title="Client can't click 'Pay Now' or the payment button is missing">
+    The **Pay Now** button only appears on the client payment portal when a live, active payment gateway is connected to your account. If the button is missing or greyed out, the gateway is either disconnected or its credentials have expired.
+
+    **Steps to resolve:**
+
+    1. Go to **Settings → Integrations** and check the status of your payment gateways (Stripe, PayPal, etc.).
+    2. If a gateway shows **Disconnected** or **Error**, click **Reconnect** and follow the prompts to re-authorise the connection.
+    3. If credentials have expired (common with API key rotations), re-enter your current API keys from your payment provider's dashboard.
+    4. After reconnecting, open a test invoice and click **Preview Payment Page** to confirm the **Pay Now** button is visible.
+
+    <Tip>
+      Set a calendar reminder to review your gateway connections every 90 days — some providers rotate credentials automatically on that cycle.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Payment shows as 'Failed' on an invoice">
+    A failed payment status means the payment gateway attempted to charge the client but the transaction was declined before funds were captured.
+
+    **Steps to resolve:**
+
+    1. **Ask your client to verify their card details** — an expired card, incorrect CVV, or billing address mismatch are the most common decline reasons.
+    2. **Ask them to contact their bank.** Some banks block international or online transactions by default; a quick call to their card provider usually resolves this.
+    3. **Record a manual payment** if you've collected payment by another method (bank transfer, cash, cheque). Open the invoice, click **Record Payment**, choose **Manual**, and enter the payment details. The invoice status will update to **Paid** immediately.
+    4. Check your payment gateway's dashboard for a specific decline code if you need to diagnose the exact reason.
+
+    <Note>
+      eInvoices does not store or have access to your clients' card details. All payment processing happens securely within the connected gateway (e.g., Stripe or PayPal).
+    </Note>
+  </Accordion>
+
+  <Accordion title="Payment was received but the invoice still shows as 'Unpaid'">
+    If your client has paid but the invoice hasn't updated automatically, the payment may not have been reconciled — this can happen with manual payments, delayed webhook notifications, or payments made outside the eInvoices payment portal.
+
+    **Steps to resolve:**
+
+    1. **Check for a pending reconciliation.** Go to **Payments → Unreconciled** and look for a payment that matches the amount and client. Click **Match** to link it to the correct invoice.
+    2. **Record a manual payment** if the payment was made outside the portal (e.g., a bank transfer). Open the invoice, click **Record Payment**, select the payment method, enter the amount and date, and save.
+    3. **Check webhook delivery.** If payments made through the portal aren't reflecting, go to **Settings → Integrations → [Your Gateway] → Webhook Logs** and look for failed delivery attempts. Click **Retry** on any failed events.
+    4. If you've completed the steps above and the invoice still hasn't updated, contact support with the invoice number and payment transaction ID.
+  </Accordion>
+
+</AccordionGroup>
+
+---
+
+## Integration Issues
+
+<AccordionGroup>
+
+  <Accordion title="QuickBooks or Xero sync is failing">
+    Accounting integrations use OAuth tokens that expire or are revoked when you change your password, revoke app permissions, or when the token reaches its maximum lifetime.
+
+    **Steps to resolve:**
+
+    1. Go to **Settings → Integrations → [QuickBooks or Xero]** and click **Disconnect**, then **Reconnect**. Follow the OAuth prompts to re-grant access.
+    2. During reconnection, make sure you log in to QuickBooks/Xero with the account that owns the organisation you want to sync — logging in with a team member's account can cause permission errors.
+    3. **Check for currency mismatch.** eInvoices and your accounting platform must both be configured for the same base currency. If your eInvoices account uses USD but your Xero organisation is set to GBP, transactions will fail to map. Update the base currency in whichever platform is incorrectly configured.
+    4. After reconnecting, trigger a manual sync by clicking **Sync Now** and monitor the sync log for any remaining errors.
+
+    <Warning>
+      Re-authenticating the integration does not automatically re-sync previously failed transactions. Review the sync error log after reconnecting and manually push any failed records.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Stripe payments are not processing">
+    The most frequent cause of Stripe processing failures is that the API keys in eInvoices are set to **test mode** instead of **live mode** — test keys only work for simulated transactions, not real payments.
+
+    **Steps to resolve:**
+
+    1. Log in to your [Stripe Dashboard](https://dashboard.stripe.com) and navigate to **Developers → API Keys**.
+    2. Confirm you're viewing **Live mode** keys (the toggle at the top of the Stripe dashboard should show **Live**, not **Test**).
+    3. Copy your live **Publishable key** and **Secret key**, then go to **Settings → Integrations → Stripe** in eInvoices and update both fields. Save and reconnect.
+    4. Check the **Stripe Dashboard → Events** log for specific error messages (e.g., `card_declined`, `invalid_request_error`) that can point to the exact cause.
+    5. If Stripe shows the payment as successful but eInvoices doesn't reflect it, check that the webhook endpoint URL shown in **Settings → Integrations → Stripe** is registered in **Stripe Dashboard → Developers → Webhooks**.
+
+    <Tip>
+      Use Stripe's built-in webhook testing tool to replay recent events and verify that eInvoices receives and processes them correctly.
+    </Tip>
+  </Accordion>
+
+</AccordionGroup>
+
+---
+
+## Account Issues
+
+<AccordionGroup>
+
+  <Accordion title="I can't log in to my account">
+    Login issues are usually caused by a forgotten password, an unverified email address, or a browser storing outdated session data.
+
+    **Steps to resolve:**
+
+    1. **Reset your password.** On the login page, click **Forgot password?**, enter your email address, and follow the link in the reset email. Check your spam folder if the email doesn't arrive within a few minutes.
+    2. **Verify your email address.** If you signed up recently and haven't clicked the verification link in your welcome email, your account may be locked. Search your inbox for an email from **noreply@einvoices.com** with the subject "Verify your eInvoices account" and click the link inside.
+    3. **Clear browser cookies and cached data** for the eInvoices domain, then try logging in again in a fresh browser window.
+    4. If you're logging in via a Google or Microsoft SSO account, make sure you're selecting the same provider you used when you first signed up.
+
+    <Note>
+      If your account has been locked after multiple failed login attempts, wait 15 minutes before trying again. Repeated failed attempts trigger an automatic temporary lockout to protect your account.
+    </Note>
+  </Accordion>
+
+  <Accordion title="I'm having trouble with two-factor authentication (2FA)">
+    2FA issues usually occur when the time on your authenticator app is out of sync, or when you no longer have access to the device where the app is installed.
+
+    **Steps to resolve:**
+
+    1. **Sync your authenticator app's clock.** Most apps (Google Authenticator, Authy) have a time correction option in their settings. Enable it and try the code again.
+    2. **Use a backup code.** When you set up 2FA, eInvoices provided a set of one-time backup codes — retrieve one of those from wherever you stored them and use it to log in.
+    3. Once you're logged in with a backup code, go to **Settings → Security → Two-Factor Authentication** and either re-enroll your authenticator app or register a new device.
+    4. **If you've lost access to both your authenticator app and your backup codes**, contact our support team directly. We'll verify your identity through your registered email address and billing information before resetting your 2FA.
+
+    <Warning>
+      Store your backup codes in a secure location (such as a password manager) immediately after enabling 2FA. They are the only recovery method if you lose your authenticator app.
+    </Warning>
+  </Accordion>
+
+</AccordionGroup>
+
+---
+
+## Still Need Help?
+
+If you've worked through the relevant steps above and your issue isn't resolved, our support team is ready to help.
+
+- **Email:** [support@einvoices.com](mailto:support@einvoices.com)
+- **In-app chat:** Click the **?** icon in the bottom-right corner of any page in eInvoices to start a live chat session.
+
+When you reach out, include your account email address, a description of the issue, any error messages you see, and the steps you've already tried — this helps us resolve your issue as quickly as possible.
