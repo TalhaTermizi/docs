@@ -20,9 +20,9 @@
           {
             "group": "Get Started",
             "pages": [
-              "quickstart",
+              "guides/quickstart",
               "guides/erp-workflow",
-              "authentication"
+              "guides/authentication"
             ]
           }
         ]
