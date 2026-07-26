@@ -27,94 +27,93 @@
         "tab": "APIs",
         "groups": [
           {
-            "group": "Auth",
-            "defaultOpen": false,
+            "group": "API Reference",
             "pages": [
-              "api-reference/auth/authenticate"
-            ]
-          },
-          {
-            "group": "Onboard Entity",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/onboarding/onboard"
-            ]
-          },
-          {
-            "group": "Invoices",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/invoices/clear-invoice",
-              "api-reference/invoices/report-invoice"
-            ]
-          },
-          {
-            "group": "Credit Notes",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/credit-notes/clear-credit-note",
-              "api-reference/credit-notes/report-credit-note"
-            ]
-          },
-          {
-            "group": "Debit Notes",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/debit-notes/clear-debit-note",
-              "api-reference/debit-notes/report-debit-note"
-            ]
-          },
-          {
-            "group": "List All",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/list-all/list-invoices",
-              "api-reference/list-all/list-credit-notes",
-              "api-reference/list-all/list-debit-notes"
-            ]
-          },
-          {
-            "group": "Get Details",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/get-details/get-invoice",
-              "api-reference/get-details/get-credit-note",
-              "api-reference/get-details/get-debit-note",
-              "api-reference/get-details/get-invoice-xml",
-              "api-reference/get-details/get-credit-note-xml",
-              "api-reference/get-details/get-debit-note-xml"
-            ]
-          },
-          {
-            "group": "Download PDF",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/pdf/invoice-pdf",
-              "api-reference/pdf/credit-note-pdf",
-              "api-reference/pdf/debit-note-pdf"
-            ]
-          },
-          {
-            "group": "Download Excel File",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/excel/generate-excel",
-              "api-reference/excel/download-excel"
-            ]
-          },
-          {
-            "group": "Archive PDFs",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/archive-pdfs/generate-pdfs-task",
-              "api-reference/archive-pdfs/download-pdfs-task"
-            ]
-          },
-          {
-            "group": "EGS Version",
-            "defaultOpen": false,
-            "pages": [
-              "api-reference/egs-info/egs-info"
+              {
+                "group": "Auth",
+                "expanded": false,
+                "pages": ["api-reference/auth/authenticate"]
+              },
+              {
+                "group": "Onboard Entity",
+                "expanded": false,
+                "pages": ["api-reference/onboarding/onboard"]
+              },
+              {
+                "group": "Invoices",
+                "expanded": false,
+                "pages": [
+                  "api-reference/invoices/clear-invoice",
+                  "api-reference/invoices/report-invoice"
+                ]
+              },
+              {
+                "group": "Credit Notes",
+                "expanded": false,
+                "pages": [
+                  "api-reference/credit-notes/clear-credit-note",
+                  "api-reference/credit-notes/report-credit-note"
+                ]
+              },
+              {
+                "group": "Debit Notes",
+                "expanded": false,
+                "pages": [
+                  "api-reference/debit-notes/clear-debit-note",
+                  "api-reference/debit-notes/report-debit-note"
+                ]
+              },
+              {
+                "group": "List All",
+                "expanded": false,
+                "pages": [
+                  "api-reference/list-all/list-invoices",
+                  "api-reference/list-all/list-credit-notes",
+                  "api-reference/list-all/list-debit-notes"
+                ]
+              },
+              {
+                "group": "Get Details",
+                "expanded": false,
+                "pages": [
+                  "api-reference/get-details/get-invoice",
+                  "api-reference/get-details/get-credit-note",
+                  "api-reference/get-details/get-debit-note",
+                  "api-reference/get-details/get-invoice-xml",
+                  "api-reference/get-details/get-credit-note-xml",
+                  "api-reference/get-details/get-debit-note-xml"
+                ]
+              },
+              {
+                "group": "Download PDF",
+                "expanded": false,
+                "pages": [
+                  "api-reference/pdf/invoice-pdf",
+                  "api-reference/pdf/credit-note-pdf",
+                  "api-reference/pdf/debit-note-pdf"
+                ]
+              },
+              {
+                "group": "Download Excel File",
+                "expanded": false,
+                "pages": [
+                  "api-reference/excel/generate-excel",
+                  "api-reference/excel/download-excel"
+                ]
+              },
+              {
+                "group": "Archive PDFs",
+                "expanded": false,
+                "pages": [
+                  "api-reference/archive-pdfs/generate-pdfs-task",
+                  "api-reference/archive-pdfs/download-pdfs-task"
+                ]
+              },
+              {
+                "group": "EGS Version",
+                "expanded": false,
+                "pages": ["api-reference/egs-info/egs-info"]
+              }
             ]
           }
         ]
