@@ -1,0 +1,19 @@
+---
+title: "Basic ERP Workflow Implementation"
+description: "A reference workflow for integrating ezInvoice into an ERP system"
+---
+
+The ezInvoice e-invoicing Phase 2 API can be integrated into any ERP, such as NetSuite, Microsoft Dynamics, SAP, Odoo, Xero, and more.
+
+The following is a possible workflow implementation for B2B invoices or credit notes:
+
+1. On the invoice page in the ERP, the user would see a new **Report to ZATCA** button.
+2. When the user clicks **Report to ZATCA**, your implementation calls our [Clear Invoice API endpoint](/api-reference/invoices/clear-invoice).
+3. The Clear Invoice endpoint reports the invoice to ZATCA synchronously and returns the signed QR code, or returns validation errors.
+4. Your implementation shows a **Successfully reported** status to the user if reported successfully, or displays the validation errors so the user can correct the invoice. If successfully reported, save the `id` returned by the endpoint in your database. You can use this `id` later to retrieve the invoice — for example, if you need to download it or send it to the customer.
+5. *(Optional)* Offer the user a button to download the invoice PDF. Your implementation would call the [Invoice PDF endpoint](/api-reference/pdf/invoice-pdf) to download the PDF.
+6. *(Optional)* Offer the user a button to send the invoice to the customer by email, using your own email delivery system with the downloaded PDF attached.
+
+<Info>
+The same pattern applies to Credit Notes and Debit Notes — swap the endpoint for [Clear Credit Note](/api-reference/credit-notes/clear-credit-note) or [Clear Debit Note](/api-reference/debit-notes/clear-debit-note) accordingly.
+</Info>
