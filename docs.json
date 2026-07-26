@@ -12,11 +12,14 @@
     "tabs": [
       {
         "tab": "Documentation",
+        "pages": ["index"]
+      },
+      {
+        "tab": "Getting Started",
         "groups": [
           {
             "group": "Get Started",
             "pages": [
-              "index",
               "quickstart",
               "authentication"
             ]
