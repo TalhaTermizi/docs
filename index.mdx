@@ -3,17 +3,101 @@ title: "Introduction"
 description: "ZATCA Phase 2 compliant e-invoicing API"
 ---
 
-# Welcome to ezInvoice
+# Welcome to ezInvoice Developer Documentation
 
-ezInvoice is a ZATCA Phase 2 compliant e-invoicing platform for businesses in Saudi Arabia. Our API handles invoice clearance, reporting, and document management so you can integrate e-invoicing directly into your ERP or POS system.
+Welcome to the ezInvoice Developer Documentation.
 
-## What you can do
+This documentation will guide you through integrating your ERP, POS, or custom application with the ezInvoice Electronic Generation System (EGS). Whether you're issuing invoices for the first time or migrating an existing solution, you'll find everything you need to build a secure and ZATCA-compliant integration.
 
-- Clear standard (B2B) invoices in real-time with ZATCA
-- Report simplified (B2C) invoices
-- Generate and retrieve invoices, credit notes, and debit notes
-- Get PDF and XML versions of any document
+<Info>
+New to ezInvoice? Start with the Getting Started guide for an overview of the documentation structure and integration process.
+</Info>
 
-## Next steps
+## Create Your Account
 
-Head to the Quickstart guide to make your first API call.
+If you don't already have an ezInvoice account, register on the ezInvoice Portal to access the sandbox environment, manage your API credentials, onboard devices, and monitor invoices.
+
+<Tip>
+Every account includes access to our Sandbox Environment, allowing you to test invoice generation, clearance, reporting, and API integration without affecting production or submitting invoices to ZATCA.
+</Tip>
+
+## Prepare Your API Credentials
+
+After signing in, generate your API Key from the Developer Portal.
+
+Your API credentials are required to authenticate every request made to the ezInvoice API.
+
+Learn more in the Authentication guide.
+
+## Start Your Integration
+
+You're now ready to integrate ezInvoice with your application.
+
+Whether you're connecting an ERP system, POS solution, or developing a custom application, ezInvoice provides a comprehensive REST API and developer resources to simplify the integration process.
+
+### Available Integration Options
+
+**ERP Integration**
+Integrate directly with Microsoft Dynamics 365, SAP, Oracle, Odoo, or any ERP system capable of making REST API requests.
+
+**POS Integration**
+Enable real-time ZATCA-compliant invoice generation and clearance for retail and point-of-sale systems.
+
+**Custom Applications**
+Build your own integration using the ezInvoice REST APIs for invoice generation, reporting, document retrieval, and device management.
+
+## What You Can Build
+
+The ezInvoice API enables you to:
+
+- Generate Standard Tax Invoices
+- Generate Simplified Tax Invoices
+- Submit invoices for Clearance and Reporting
+- Download Invoice XML and PDF documents
+- Issue Credit Notes and Debit Notes
+- Retrieve invoice history
+- Manage registered devices
+- Monitor invoice processing status
+- Generate reports and analytics
+
+## Supported Platforms
+
+ezInvoice supports integration across multiple platforms.
+
+- REST API
+- ERP Systems
+- POS Applications
+- Web Applications
+- Desktop Applications
+- Mobile Applications
+- Third-party Integrations
+
+## Verify Your Integration
+
+Before moving to production, verify your integration by sending test invoices through the Sandbox Environment.
+
+Ensure that:
+
+- Authentication is successful
+- Invoices are generated correctly
+- Clearance and reporting responses are received
+- XML and PDF documents are generated
+- All validation errors are handled appropriately
+
+## Go Live
+
+Once testing is complete, switch to your Production API credentials and begin issuing legally compliant electronic invoices to ZATCA.
+
+Refer to the Production Checklist before enabling live invoice processing.
+
+## Need Help?
+
+If you need assistance during integration, our technical support team is here to help.
+
+- Contact Support
+- Submit a Support Ticket
+- Browse Frequently Asked Questions (FAQ)
+- Access Integration Guides
+- View API Reference
+
+This documentation is designed to help developers integrate with ezInvoice quickly, securely, and in full compliance with ZATCA Phase 2 (Fatoora) requirements. Whether you're integrating a single POS terminal or a large enterprise ERP, you'll find the resources needed to build a reliable e-invoicing solution.
