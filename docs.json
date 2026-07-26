@@ -21,6 +21,7 @@
             "group": "Get Started",
             "pages": [
               "quickstart",
+              "guides/erp-workflow",
               "authentication"
             ]
           }
