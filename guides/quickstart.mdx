@@ -1,0 +1,50 @@
+---
+title: "Quickstart"
+description: "Make your first API call in minutes"
+---
+
+This guide walks you through authenticating, onboarding a device, and clearing your first invoice.
+
+## Step 1: Authenticate
+
+```bash
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/auth \
+  -H "Content-Type: application/json" \
+  -d '{
+    "vat_number": "YOUR_VAT_NUMBER",
+    "username": "YOUR_USERNAME",
+    "secret": "YOUR_SECRET"
+  }'
+```
+
+Save the `token` from the response — you'll need it for every request below.
+
+## Step 2: Onboard your device
+
+```json
+curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/onboardings \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "otp": "YOUR_OTP",
+    "vat_number": "YOUR_VAT_NUMBER",
+    "device_id": "YOUR_DEVICE_ID",
+    "invoice_type": "both",
+    "org_name": "Your Company Name",
+    "org_unit": "Riyadh",
+    "business_category": "IT",
+    "registered_address": "Your Address",
+    "country_code": "SA",
+    "email_id": "you@example.com"
+  }'
+```
+
+Save the `onboard_id` from the response — you'll need it for every document request below.
+
+## Step 3: Clear your first invoice
+
+{/*  ⚠️ Placeholder — once we document Clear Invoice, add the real curl example here  */}
+
+## Next steps
+
+Explore the full API Reference to see every available endpoint.
