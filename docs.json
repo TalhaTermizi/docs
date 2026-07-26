@@ -8,7 +8,6 @@
     "dark": "#0F766E"
   },
   "favicon": "/favicon.svg",
-
   "navigation": {
     "tabs": [
       {
@@ -57,6 +56,53 @@
                   "api-reference/debit-notes/clear-debit-note",
                   "api-reference/debit-notes/report-debit-note"
                 ]
+              },
+              {
+                "group": "List All",
+                "pages": [
+                  "api-reference/list-all/list-invoices",
+                  "api-reference/list-all/list-credit-notes",
+                  "api-reference/list-all/list-debit-notes"
+                ]
+              },
+              {
+                "group": "Get Details",
+                "pages": [
+                  "api-reference/get-details/get-invoice",
+                  "api-reference/get-details/get-credit-note",
+                  "api-reference/get-details/get-debit-note",
+                  "api-reference/get-details/get-invoice-xml",
+                  "api-reference/get-details/get-credit-note-xml",
+                  "api-reference/get-details/get-debit-note-xml"
+                ]
+              },
+              {
+                "group": "Download PDF",
+                "pages": [
+                  "api-reference/pdf/invoice-pdf",
+                  "api-reference/pdf/credit-note-pdf",
+                  "api-reference/pdf/debit-note-pdf"
+                ]
+              },
+              {
+                "group": "Download Excel File",
+                "pages": [
+                  "api-reference/excel/generate-excel",
+                  "api-reference/excel/download-excel"
+                ]
+              },
+              {
+                "group": "Archive PDFs",
+                "pages": [
+                  "api-reference/archive-pdfs/generate-pdfs-task",
+                  "api-reference/archive-pdfs/download-pdfs-task"
+                ]
+              },
+              {
+                "group": "EGS Version",
+                "pages": [
+                  "api-reference/egs-info/egs-info"
+                ]
               }
             ]
           }
@@ -64,11 +110,9 @@
       }
     ]
   },
-
   "footer": {
     "socials": {}
   },
-
   "navbar": {
     "primary": {
       "type": "button",
