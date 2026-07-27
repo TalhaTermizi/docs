@@ -131,7 +131,7 @@
     "primary": {
       "type": "button",
       "label": "Login",
-      "href": "https://developer.einvoice.sa.com"
+      "href": "https://portal.einvoice.sa.com"
     }
   }
 }
