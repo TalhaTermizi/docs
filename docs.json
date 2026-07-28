@@ -33,6 +33,7 @@
           {
             "group": "API Reference",
             "pages": [
+              "api-reference/introduction",
               {
                 "group": "Auth",
                 "expanded": false,
@@ -131,7 +132,7 @@
     "primary": {
       "type": "button",
       "label": "Login",
-      "href": "https://portal.einvoice.sa.com"
+      "href": "https://developer.einvoice.sa.com"
     }
   }
 }
