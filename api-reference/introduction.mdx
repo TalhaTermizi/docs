@@ -1,0 +1,39 @@
+---
+title: "API Introduction"
+description: "Overview of the ezInvoice REST API"
+---
+
+ezInvoice provides a REST API that uses standard HTTP methods for requests, authenticates via a bearer token, and returns responses in JSON format.
+
+The ezInvoice API is available in two environments: **Sandbox** and **Production**. Using the Sandbox environment does not submit invoices to ZATCA or affect your live data. The environment is determined by which credentials (VAT number, username, secret) you authenticate with — sandbox credentials only work against the sandbox base URL, and production credentials only work against the production base URL.
+
+## Base URL
+
+All API requests must be made to the following base URL:
+
+```
+https://api.einvoice.sa.com/v1/e-invoicing
+```
+
+{/* ⚠️ Confirm this is the correct production base URL, and whether sandbox uses a different hostname */}
+
+## Postman Collection
+
+{/* ⚠️ Add download links here once you have a public Postman collection export + environment files hosted somewhere */}
+
+## Setting Up Postman
+
+1. Import the Collection and Environment into Postman.
+2. Configure variables: `remote_hostname`, `port`, `onboard_id`, and your auth credentials.
+3. Choose the appropriate environment (Sandbox or Production) from the environment dropdown.
+
+<Info>
+Always use an environment in Postman to manage your API keys securely. Never hardcode credentials directly in requests.
+</Info>
+
+<Tip>
+**Testing Best Practices:**
+- Start with the Sandbox environment to verify your integration
+- Test invoice clearance, reporting, and error handling before going live
+- Switch to Production credentials only after thorough testing
+</Tip>
