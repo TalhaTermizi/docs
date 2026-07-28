@@ -2,6 +2,10 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
   "name": "ezInvoice",
+  "logo": {
+    "light": "/logo/ezInvoiceLogo.png",
+    "dark": "/logo/ezInvoiceBlackWhiteLogo.png"
+  },
   "colors": {
     "primary": "#0D9488",
     "light": "#14B8A6",
