@@ -1,4 +1,8 @@
-nav-logo img {
-  height: 40px !important;
+#sidebar img,
+#navbar img,
+header img,
+a[href="/"] img {
+  height: 44px !important;
   width: auto !important;
+  max-height: none !important;
 }
