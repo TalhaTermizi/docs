@@ -21,8 +21,7 @@
             "group": "Get Started",
             "pages": [
               "guides/quickstart",
-              "guides/erp-workflow",
-              "guides/authentication"
+              "guides/erp-workflow"
             ]
           }
         ]
@@ -34,6 +33,7 @@
             "group": "API Reference",
             "pages": [
               "api-reference/introduction",
+              "api-reference/authentication",
               {
                 "group": "Auth",
                 "expanded": false,
