@@ -3,8 +3,8 @@
   "theme": "maple",
   "name": "ezInvoice",
   "logo": {
-    "light": "/logo/ezInvoiceLogo.png",
-    "dark": "/logo/ezInvoiceBlackWhiteLogo.png"
+  "light": "/logo/ezInvoiceLogo-cropped.png",
+  "dark": "/logo/ezInvoiceBlackWhiteLogo-cropped.png"
   },
   "colors": {
     "primary": "#0D9488",
