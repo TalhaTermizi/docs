@@ -14,7 +14,7 @@
   "favicon": "/favicon.svg",
    "api": {
    "mdx": {
-     "server": "https://api.einvoice.sa.com:9090/v1/e-invoicing"
+     "server": "https://api.einvoice.sa.com:{port}/v1/e-invoicing"
    }
  },
   "navigation": {
