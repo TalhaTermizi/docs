@@ -3,8 +3,8 @@
   "theme": "maple",
   "name": "ezInvoice",
   "logo": {
-  "light": "/logo/ezInvoiceLogo-cropped.png",
-  "dark": "/logo/ezInvoiceBlackWhiteLogo-cropped.png"
+    "light": "/logo/ezInvoiceLogo-cropped.png",
+    "dark": "/logo/ezInvoiceBlackWhiteLogo-cropped.png"
   },
   "colors": {
     "primary": "#0D9488",
@@ -12,6 +12,11 @@
     "dark": "#0F766E"
   },
   "favicon": "/favicon.svg",
+  "api": {
+    "mdx": {
+      "server": "https://api.einvoice.sa.com:{port}/v1/e-invoicing"
+    }
+  },
   "navigation": {
     "tabs": [
       {
