@@ -1,6 +1,6 @@
 ---
 title: "Clear Invoice"
-api: "POST /v1/e-invoicing/{onboard_id}/invoices"
+api: "POST /{onboard_id}/invoices"
 description: "Report a Standard (B2B) invoice to ZATCA."
 ---
 
@@ -42,7 +42,7 @@ Requires a valid token from [Authenticate](/api-reference/auth/authenticate).
 ## Example Request
 
 ```bash
-curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/{onboard_id}/invoices \
+curl -X POST https://api.einvoice.sa.com:9090/v1/e-invoicing/{onboard_id}/invoices \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -169,33 +169,4 @@ curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/{onboard_id}/invoices \
   "invoice": "PD94bWwgdmVyc2lvbj0iMS4wIi...(base64-encoded signed UBL XML, truncated)",
   "id": "325c1994-2655-4d05-a15a-49398e949660",
   "qr_code": "AQ9OYWptYSBBbCBIdWxvb2wCDzMxMTI2MjA0NjYwMDAwMw...(truncated)",
-  "message": "standard-invoice INV01 cleared successfully",
-  "warnings": null,
-  "errors": null
-}
-```
-
-<Info>
-The `invoice` field is the full ZATCA-signed UBL 2.1 invoice, base64-encoded. Decode it if you need to store or display the raw XML. The `qr_code` field is a base64-encoded ZATCA-compliant QR code for the invoice.
-</Info>
-
-## Response Fields
-
-| Field | Description |
-|---|---|
-| status | `Success` or `Failure` |
-| invoice_number | Echoes back your submitted invoice number |
-| invoice | Base64-encoded, ZATCA-signed UBL XML |
-| id | Unique UUID assigned to this invoice |
-| qr_code | Base64-encoded QR code data |
-| message | Human-readable result summary |
-| warnings | Any non-blocking ZATCA warnings, or `null` |
-| errors | Any blocking errors, or `null` |
-
-## Errors
-
-| Code | Meaning |
-|---|---|
-| 400 | Invalid or missing required field |
-| 401 | Missing or invalid auth token |
-| 422 | ZATCA rejected the invoice — check `errors` field in response |
+  "message": "standard-invoice INV01
