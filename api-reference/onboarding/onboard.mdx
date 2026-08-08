@@ -36,7 +36,7 @@ Requires a valid token from [Authenticate](/api-reference/auth/authenticate).
 ## Example Request
 
 ```bash
-curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/onboardings \
+curl -X POST https://api.einvoice.sa.com:9090/v1/e-invoicing/onboardings \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -55,6 +55,8 @@ curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/onboardings \
 
 ## Example Response
 
+{/* ⚠️ PLACEHOLDER — replace with the real response body from Postman */}
+
 ```json
 {
   "onboard_id": "NjU5YTcyYTI2NGE4MmI5ZjNmMDY2NjY5OjMxMTI2MjA0NjYwMDAwMzpEZXZpY2VJZC0wMDE=",
@@ -63,16 +65,12 @@ curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/onboardings \
 ```
 
 <Warning>
-Replace this example response with the real response body from your Postman collection once confirmed.
-</Warning>
-
-<Warning>
 Save the `onboard_id` returned here — every invoice, credit note, and debit note endpoint requires it in the URL path.
 </Warning>
 
 ## Where to get the OTP
 
-{/* ⚠️ Need to fill this in — where does the OTP come from? SMS, email, or a separate endpoint not in this collection? */}
+{/* ⚠️ Need to fill this in — where does the OTP come from? SMS, email, or a separate endpoint? */}
 
 ## Errors
 
