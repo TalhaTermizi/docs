@@ -13,18 +13,45 @@ Requires a valid token from [Authenticate](/api-reference/auth/authenticate).
 
 ## Request Body
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| otp | string | Yes | One-time password sent for verification |
-| vat_number | string | Yes | Your organization's 15-digit VAT number |
-| device_id | string | Yes | Unique identifier you choose for this device |
-| invoice_type | string | Yes | `standard`, `simplified`, or `both` — see note below |
-| org_name | string | Yes | Legal business name |
-| org_unit | string | Yes | Branch or unit name (e.g. city/location) |
-| business_category | string | Yes | Industry category, e.g. `IT`, `Retail` |
-| registered_address | string | Yes | Registered business address |
-| country_code | string | Yes | ISO country code, e.g. `SA` |
-| email_id | string | Yes | Contact email for this onboarding |
+<ParamField body="otp" type="string" required>
+  One-time password sent for verification
+</ParamField>
+
+<ParamField body="vat_number" type="string" required>
+  Your organization's 15-digit VAT number
+</ParamField>
+
+<ParamField body="device_id" type="string" required>
+  Unique identifier you choose for this device
+</ParamField>
+
+<ParamField body="invoice_type" type="string" required>
+  `standard`, `simplified`, or `both` — see note below
+</ParamField>
+
+<ParamField body="org_name" type="string" required>
+  Legal business name
+</ParamField>
+
+<ParamField body="org_unit" type="string" required>
+  Branch or unit name (e.g. city/location)
+</ParamField>
+
+<ParamField body="business_category" type="string" required>
+  Industry category, e.g. `IT`, `Retail`
+</ParamField>
+
+<ParamField body="registered_address" type="string" required>
+  Registered business address
+</ParamField>
+
+<ParamField body="country_code" type="string" required>
+  ISO country code, e.g. `SA`
+</ParamField>
+
+<ParamField body="email_id" type="string" required>
+  Contact email for this onboarding
+</ParamField>
 
 <Info>
 **Choosing `invoice_type`:**
