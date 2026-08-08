@@ -1,6 +1,6 @@
 ---
 title: "Report Invoice"
-api: "POST /v1/e-invoicing/{onboard_id}/invoices"
+api: "POST /{onboard_id}/invoices"
 ---
 
 ## What it does
@@ -8,7 +8,7 @@ api: "POST /v1/e-invoicing/{onboard_id}/invoices"
 Submits a simplified (B2C) invoice to ZATCA for reporting. Unlike clearance, reporting doesn't happen in real-time before the invoice is issued — the invoice is issued immediately and reported to ZATCA within the compliance window.
 
 <Info>
-This uses the same endpoint as [Clear Invoice](/api-reference/invoices/clear-invoice). The only difference is `invoice_type: "simplified"` instead of `"standard"`. See [Working with Documents](/guides/working-with-documents) for how clearance and reporting relate.
+This uses the same endpoint as [Clear Invoice](/api-reference/invoices/clear-invoice). The only difference is `invoice_type: "simplified"` instead of `"standard"`.
 </Info>
 
 ## Authentication
@@ -33,7 +33,7 @@ Same structure as [Clear Invoice](/api-reference/invoices/clear-invoice), with t
 ## Example Request
 
 ```bash
-curl -X POST https://api.einvoice.sa.com/v1/e-invoicing/{onboard_id}/invoices \
+curl -X POST https://api.einvoice.sa.com:9090/v1/e-invoicing/{onboard_id}/invoices \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
