@@ -9,11 +9,17 @@ Exchanges your registered credentials for an access token. This token must be se
 
 ## Request Body
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| vat_number | string | Yes | Your organization's 15-digit VAT registration number |
-| username | string | Yes | API username assigned to your account |
-| secret | string | Yes | API secret/password assigned to your account |
+<ParamField body="vat_number" type="string" required>
+  Your organization's 15-digit VAT registration number
+</ParamField>
+
+<ParamField body="username" type="string" required>
+  API username assigned to your account
+</ParamField>
+
+<ParamField body="secret" type="string" required>
+  API secret/password assigned to your account
+</ParamField>
 
 ## Example Request
 
