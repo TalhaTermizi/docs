@@ -14,189 +14,30 @@ Requires a valid token from [Authenticate](/api-reference/auth/authenticate).
 
 ## Path Parameters
 
-<ParamField path="onboard_id" type="string" required>
-  ID returned from the [Onboard](/api-reference/onboarding/onboard) endpoint
-</ParamField>
+| Name | Type | Description |
+|---|---|---|
+| onboard_id | string | ID returned from the [Onboard](/api-reference/onboarding/onboard) endpoint |
 
 ## Request Body
 
-<ParamField body="invoice_number" type="string" required>
-  Your internal invoice reference number
-</ParamField>
-
-<ParamField body="invoice_type" type="string" required>
-  `standard` for B2B clearance
-</ParamField>
-
-<ParamField body="issue_date" type="string" required>
-  Invoice issue date, `YYYY-MM-DD`
-</ParamField>
-
-<ParamField body="actual_delivery_date" type="string" required>
-  Delivery date, `YYYY-MM-DD`
-</ParamField>
-
-<ParamField body="issue_time" type="string" required>
-  Issue time, `HH:MM:SS`
-</ParamField>
-
-<ParamField body="note" type="string">
-  Free-text note on the invoice
-</ParamField>
-
-<ParamField body="doc_currency_code" type="string" required>
-  Document currency, e.g. `SAR`
-</ParamField>
-
-<ParamField body="tax_currency_code" type="string" required>
-  Tax currency, e.g. `SAR`
-</ParamField>
-
-<ParamField body="customer_info" type="object" required>
-  Buyer details
-  <Expandable title="properties">
-    <ParamField body="customer_info.vat_number" type="string" required>
-      Buyer's VAT number
-    </ParamField>
-    <ParamField body="customer_info.tax_type" type="string" required>
-      e.g. `VAT`
-    </ParamField>
-    <ParamField body="customer_info.registration_name" type="string" required>
-      Buyer's legal name
-    </ParamField>
-    <ParamField body="customer_info.address" type="object" required>
-      Buyer's address
-      <Expandable title="properties">
-        <ParamField body="customer_info.address.street_name" type="string" required />
-        <ParamField body="customer_info.address.building_number" type="string" required />
-        <ParamField body="customer_info.address.plot_identification" type="string" required />
-        <ParamField body="customer_info.address.city_subdivision_name" type="string" required />
-        <ParamField body="customer_info.address.city_name" type="string" required />
-        <ParamField body="customer_info.address.postal_zone" type="string" required />
-        <ParamField body="customer_info.address.country" type="string" required />
-        <ParamField body="customer_info.address.country_subentity" type="string" />
-      </Expandable>
-    </ParamField>
-    <ParamField body="customer_info.party_identification" type="object" required>
-      <Expandable title="properties">
-        <ParamField body="customer_info.party_identification.scheme" type="string" required>
-          e.g. `CRN`
-        </ParamField>
-        <ParamField body="customer_info.party_identification.id" type="string" required />
-      </Expandable>
-    </ParamField>
-  </Expandable>
-</ParamField>
-
-<ParamField body="supplier_info" type="object" required>
-  Seller details
-  <Expandable title="properties">
-    <ParamField body="supplier_info.vat_number" type="string" required>
-      Seller's VAT number
-    </ParamField>
-    <ParamField body="supplier_info.tax_type" type="string" required>
-      e.g. `VAT`
-    </ParamField>
-    <ParamField body="supplier_info.registration_name" type="string" required>
-      Seller's legal name
-    </ParamField>
-    <ParamField body="supplier_info.address" type="object" required>
-      Seller's address
-      <Expandable title="properties">
-        <ParamField body="supplier_info.address.street_name" type="string" required />
-        <ParamField body="supplier_info.address.building_number" type="string" required />
-        <ParamField body="supplier_info.address.plot_identification" type="string" required />
-        <ParamField body="supplier_info.address.city_subdivision_name" type="string" required />
-        <ParamField body="supplier_info.address.city_name" type="string" required />
-        <ParamField body="supplier_info.address.postal_zone" type="string" required />
-        <ParamField body="supplier_info.address.country" type="string" required />
-        <ParamField body="supplier_info.address.country_subentity" type="string" />
-      </Expandable>
-    </ParamField>
-    <ParamField body="supplier_info.party_identification" type="object" required>
-      <Expandable title="properties">
-        <ParamField body="supplier_info.party_identification.scheme" type="string" required>
-          e.g. `CRN`
-        </ParamField>
-        <ParamField body="supplier_info.party_identification.id" type="string" required />
-      </Expandable>
-    </ParamField>
-  </Expandable>
-</ParamField>
-
-<ParamField body="payment_means" type="string" required>
-  e.g. `cash`
-</ParamField>
-
-<ParamField body="payment_means_instruction_note" type="string">
-  Free-text payment note
-</ParamField>
-
-<ParamField body="allowance_charge" type="object" required>
-  Invoice-level discount/charge details
-  <Expandable title="properties">
-    <ParamField body="allowance_charge.charge_indicator" type="boolean" required />
-    <ParamField body="allowance_charge.reason" type="string" required />
-    <ParamField body="allowance_charge.amount" type="number" required />
-    <ParamField body="allowance_charge.currency" type="string" required />
-    <ParamField body="allowance_charge.tax_category" type="object" required>
-      <Expandable title="properties">
-        <ParamField body="allowance_charge.tax_category.id" type="string" required />
-        <ParamField body="allowance_charge.tax_category.percent" type="number" required />
-        <ParamField body="allowance_charge.tax_category.tax_type" type="string" required />
-      </Expandable>
-    </ParamField>
-  </Expandable>
-</ParamField>
-
-<ParamField body="tax_total" type="object" required>
-  Total tax amount and breakdown
-  <Expandable title="properties">
-    <ParamField body="tax_total.currency" type="string" required />
-    <ParamField body="tax_total.tax_amount" type="number" required />
-    <ParamField body="tax_total.tax_subtotal" type="object" required>
-      <Expandable title="properties">
-        <ParamField body="tax_total.tax_subtotal.taxable_amount" type="number" required />
-        <ParamField body="tax_total.tax_subtotal.tax_amount" type="number" required />
-        <ParamField body="tax_total.tax_subtotal.tax_category" type="object" required>
-          <Expandable title="properties">
-            <ParamField body="tax_total.tax_subtotal.tax_category.id" type="string" required />
-            <ParamField body="tax_total.tax_subtotal.tax_category.percent" type="number" required />
-            <ParamField body="tax_total.tax_subtotal.tax_category.tax_type" type="string" required />
-          </Expandable>
-        </ParamField>
-      </Expandable>
-    </ParamField>
-  </Expandable>
-</ParamField>
-
-<ParamField body="legal_monitory_total" type="object" required>
-  Total, tax-exclusive, tax-inclusive, and payable amounts
-  <Expandable title="properties">
-    <ParamField body="legal_monitory_total.total_amount" type="number" required />
-    <ParamField body="legal_monitory_total.tax_exclusive_amount" type="number" required />
-    <ParamField body="legal_monitory_total.tax_inclusive_amount" type="number" required />
-    <ParamField body="legal_monitory_total.payable_amount" type="number" required />
-  </Expandable>
-</ParamField>
-
-## Invoice Lines
-
-`invoice_lines` is an array of line-item objects. Each line item has this shape:
-
 | Field | Type | Required | Description |
 |---|---|---|---|
-| id | string | Yes | Line item ID |
-| unit_code | string | Yes | e.g. `EA` |
-| quantity | number | Yes | Quantity |
-| amount | number | Yes | Line amount |
-| tax_total | object | Yes | `currency`, `tax_amount`, `rounding_amount` |
-| item | object | Yes | `name`, `classified_tax_category` (`id`, `percent`, `tax_type`) |
-| price | object | Yes | `currency`, `price_per_unit`, `base_unit_code`, `allowance_charge` |
-
-<Info>
-Arrays aren't editable in the Try It form. Use the curl example below as a template, or test single-line invoices by pasting a full JSON body via the "Raw" tab in the playground if available.
-</Info>
+| invoice_number | string | Yes | Your internal invoice reference number |
+| invoice_type | string | Yes | `standard` for B2B clearance |
+| issue_date | string | Yes | Invoice issue date, `YYYY-MM-DD` |
+| actual_delivery_date | string | Yes | Delivery date, `YYYY-MM-DD` |
+| issue_time | string | Yes | Issue time, `HH:MM:SS` |
+| note | string | No | Free-text note on the invoice |
+| doc_currency_code | string | Yes | Document currency, e.g. `SAR` |
+| tax_currency_code | string | Yes | Tax currency, e.g. `SAR` |
+| customer_info | object | Yes | Buyer VAT number, name, address, party ID |
+| supplier_info | object | Yes | Seller VAT number, name, address, party ID |
+| payment_means | string | Yes | e.g. `cash` |
+| payment_means_instruction_note | string | No | Free-text payment note |
+| allowance_charge | object | Yes | Invoice-level discount/charge details |
+| tax_total | object | Yes | Total tax amount and breakdown |
+| legal_monitory_total | object | Yes | Total, tax-exclusive, tax-inclusive, and payable amounts |
+| invoice_lines | array | Yes | Line items — quantity, price, tax per item |
 
 ## Example Request
 
@@ -328,33 +169,4 @@ curl -X POST https://api.einvoice.sa.com:9090/v1/e-invoicing/{onboard_id}/invoic
   "invoice": "PD94bWwgdmVyc2lvbj0iMS4wIi...(base64-encoded signed UBL XML, truncated)",
   "id": "325c1994-2655-4d05-a15a-49398e949660",
   "qr_code": "AQ9OYWptYSBBbCBIdWxvb2wCDzMxMTI2MjA0NjYwMDAwMw...(truncated)",
-  "message": "standard-invoice INV01 cleared successfully",
-  "warnings": null,
-  "errors": null
-}
-```
-
-<Info>
-The `invoice` field is the full ZATCA-signed UBL 2.1 invoice, base64-encoded. Decode it if you need to store or display the raw XML. The `qr_code` field is a base64-encoded ZATCA-compliant QR code for the invoice.
-</Info>
-
-## Response Fields
-
-| Field | Description |
-|---|---|
-| status | `Success` or `Failure` |
-| invoice_number | Echoes back your submitted invoice number |
-| invoice | Base64-encoded, ZATCA-signed UBL XML |
-| id | Unique UUID assigned to this invoice |
-| qr_code | Base64-encoded QR code data |
-| message | Human-readable result summary |
-| warnings | Any non-blocking ZATCA warnings, or `null` |
-| errors | Any blocking errors, or `null` |
-
-## Errors
-
-| Code | Meaning |
-|---|---|
-| 400 | Invalid or missing required field |
-| 401 | Missing or invalid auth token |
-| 422 | ZATCA rejected the invoice — check `errors` field in response |
+  "message": "standard-invoice INV01
